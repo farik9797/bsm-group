@@ -1,5 +1,5 @@
 /* Hallmark · shape: client mockup 1:1 (dark logistics landing) · genre: modern-minimal · theme: Wayfind (deal 2/3), overridden by the client's own mockup · job: book (заявка на расчёт перевозки) · draw: manual
- * hero: Split, copy left over a full-bleed black BSM truck · nav: logo, services menu, links, language, lime action · footer: one bar plus legal row · imagery: client's own BSM photographs, Wikimedia Commons cities, ship and night Earth (credited) · signature: a lime road with a truck driving it on scroll, lime routes into Tashkent · wayfind: dark colourway, BSM brand (black, lime #ADF728, purple #8E43F1)
+ * hero: Split, copy left over a full-bleed black BSM truck · nav: logo, services menu, links, language, lime action · footer: one bar plus legal row · imagery: client's own BSM photographs, Wikimedia Commons cities, ship and night Earth · signature: a lime road with a truck driving it on scroll, lime routes into Tashkent · wayfind: dark colourway, BSM brand (black, lime #ADF728, purple #8E43F1)
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
@@ -286,8 +286,6 @@ section { position: relative; }
 .footer__phone { display: inline-flex; align-items: center; gap: var(--space-xs); font-weight: 600; opacity: 1 !important; }
 .footer__phone .icon { color: var(--color-accent); }
 .footer__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-sm); padding-top: var(--space-md); font-size: var(--text-xs); color: var(--color-muted); }
-.footer__credits { margin-top: var(--space-sm); font-size: var(--text-xs); line-height: 2.2; color: var(--color-muted); }
-.footer__credits a { color: var(--color-ink); }
 
 .dock { display: none; }
 
@@ -348,7 +346,7 @@ section { position: relative; }
   .types__labels { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-lg); }
   .types__labels li { position: static; translate: none; padding: var(--space-2xs) var(--space-sm); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); font-size: var(--text-sm); color: var(--color-ink); }
   .types__map { margin-top: var(--space-xl); }
-  .badge, .scroll-cue, .step__num, .footer__legal, .footer__credits, .stat dt { font-size: var(--text-sm); }
+  .badge, .scroll-cue, .step__num, .footer__legal, .stat dt { font-size: var(--text-sm); }
   .nav .logo { width: 76px; }
   .lang { display: none; }
   .hero__actions .btn { width: 100%; }
