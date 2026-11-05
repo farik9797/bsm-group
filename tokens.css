@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
   --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
   --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
@@ -9,12 +9,15 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: #F4F4F0; --color-paper-2: #E8E8E2; --color-paper-3: #FFFFFF;
-  --color-ink: #050505; --color-ink-2: #1C1C1F; --color-muted: #5C5C63; --color-on-ink-muted: #A3A3AA;
-  --color-rule: #CFCFC8; --color-ink-rule: #2E2E33;
-  --color-accent: #8E43F1; --color-accent-hover: #7A2FE0; --color-accent-2: #ADF728; --color-accent-ink: #FFFFFF; --color-focus: #8E43F1; --color-focus-on-ink: #ADF728; --color-on-accent-rule: #B98BF6;
-  --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: "JetBrains Mono", ui-monospace, monospace;
-  --radius-card: 0; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
-  --shadow-card: 0 24px 40px -24px rgb(0 0 0 / 0.55); --veil: rgb(5 5 5 / 0.55);
+  --color-paper: #07070A; --color-paper-2: #0D0D12; --color-paper-3: #FFFFFF;
+  --color-surface: #121218; --color-surface-2: #1A1A22; --color-glass: rgb(18 18 24 / 0.62);
+  --color-ink: #F4F4F6; --color-muted: #A3A3AE; --color-dim: #74747F;
+  --color-rule: #272730; --color-rule-strong: #3A3A45;
+  --color-accent: #ADF728; --color-accent-hover: #C2FF55; --color-accent-ink: #050505; --color-accent-2: #8E43F1;
+  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22); --color-shade: rgb(7 7 10 / 0.92); --color-shade-0: rgb(7 7 10 / 0);
+  --color-focus: #ADF728;
+  --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-body);
+  --radius-card: 20px; --radius-sm: 12px; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
+  --shadow-card: 0 30px 60px -30px rgb(0 0 0 / 0.8);
   --tracking-display: -0.035em; --display-weight: 800;
 }

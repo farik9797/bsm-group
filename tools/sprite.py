@@ -4,7 +4,7 @@ import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
 icons = {'i-menu':'menu','i-x':'x','i-phone':'phone','i-mail':'mail','i-map-pin':'map-pin','i-truck':'truck',
          'i-train':'train-front','i-plane':'plane','i-file':'file-check-2','i-warehouse':'warehouse','i-search':'search',
-         'i-package':'package-check','i-telegram':'telegram','i-instagram':'instagram'}
+         'i-package':'package-check','i-globe':'globe','i-shield':'shield-check','i-star':'star','i-clock':'clock','i-handshake':'handshake','i-chart':'chart-column','i-doc':'file-text','i-calc':'calculator','i-check':'circle-check','i-arrow':'arrow-up-right','i-eye':'eye','i-ship':'ship','i-telegram':'telegram','i-instagram':'instagram'}
 out = []
 for sid, name in icons.items():
     src = (root/'assets/icons'/f'{name}.svg').read_text()
