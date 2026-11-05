@@ -10,11 +10,11 @@
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
   --color-paper: #07070A; --color-paper-2: #0D0D12; --color-paper-3: #FFFFFF;
-  --color-surface: #121218; --color-surface-2: #1A1A22; --color-glass: rgb(18 18 24 / 0.62);
+  --color-surface: #121218; --color-surface-2: #1A1A22; --color-glass: rgb(16 16 22 / 0.86);
   --color-ink: #F4F4F6; --color-muted: #A3A3AE; --color-dim: #74747F;
   --color-rule: #272730; --color-rule-strong: #3A3A45;
   --color-accent: #ADF728; --color-accent-hover: #C2FF55; --color-accent-ink: #050505; --color-accent-2: #8E43F1;
-  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22); --color-shade: rgb(7 7 10 / 0.92); --color-shade-0: rgb(7 7 10 / 0);
+  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22); --color-shade: rgb(7 7 10 / 0.95); --color-shade-0: rgb(7 7 10 / 0);
   --color-focus: #ADF728;
   --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-body);
   --radius-card: 20px; --radius-sm: 12px; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
