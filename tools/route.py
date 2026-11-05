@@ -106,7 +106,7 @@ ROUTE = ('M 241 329 H 1427 A 150 150 0 0 1 1427 629 H 291 A 146.5 146.5 0 0 0 29
 ET.SubElement(out, f'{{{NS}}}path', {'class': 'rt-lit', 'd': ROUTE, 'pathLength': '1', 'data-rt-path': ''})
 marker = ET.SubElement(out, f'{{{NS}}}g', {'class': 'rt-marker', 'data-rt-marker': '', 'transform': 'translate(241 329)'})
 ET.SubElement(marker, f'{{{NS}}}circle', {'r': '30'})
-ET.SubElement(marker, f'{{{NS}}}use', {'href': '#i-truck', 'x': '-16', 'y': '-16', 'width': '32', 'height': '32'})
+ET.SubElement(marker, f'{{{NS}}}use', {'href': '#i-package', 'x': '-16', 'y': '-16', 'width': '32', 'height': '32'})
 
 markup = ET.tostring(out, encoding='unicode')
 markup = markup.replace(f'xmlns="{NS}" ', '').replace(' xmlns="http://www.w3.org/2000/svg"', '')
