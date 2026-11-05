@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=14">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -168,23 +168,7 @@
   <!-- Geography -->
   <section class="geo" id="geo">
     <div class="geo__map" aria-hidden="true">
-      <img src="assets/img/map-dots.webp" alt="" width="3200" height="1800" loading="lazy" decoding="async">
-      <svg class="geo__routes" viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice">
-        <path class="geo__arc" pathLength="1" d="M200 245 Q 370 40 546 245"/>
-        <path class="geo__arc" pathLength="1" d="M372 232 Q 460 150 546 245"/>
-        <path class="geo__arc" pathLength="1" d="M440 288 Q 500 300 546 245"/>
-        <path class="geo__arc" pathLength="1" d="M690 300 Q 620 200 546 245"/>
-        <circle class="geo__dot" cx="200" cy="245" r="6"/>
-        <circle class="geo__dot" cx="372" cy="232" r="6"/>
-        <circle class="geo__dot" cx="440" cy="288" r="6"/>
-        <circle class="geo__dot" cx="690" cy="300" r="6"/>
-        <circle class="geo__pulse" cx="546" cy="245" r="10"/>
-        <circle class="geo__hub" cx="546" cy="245" r="7"/>
-        <g class="geo__label" transform="translate(562 214)">
-          <rect width="128" height="34" rx="17"/>
-          <text x="64" y="22" text-anchor="middle">Узбекистан</text>
-        </g>
-      </svg>
+      <video muted loop playsinline preload="none" poster="assets/img/geo-poster.webp" width="1920" height="1080" data-geo-video><source src="assets/video/geo-540.mp4" type="video/mp4" media="(max-width: 960px)"><source src="assets/video/geo-1080.mp4" type="video/mp4"></video>
     </div>
     <div class="container geo__inner">
       <div class="geo__copy">
@@ -373,6 +357,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=12" defer></script>
+<script src="main.js?v=14" defer></script>
 </body>
 </html>

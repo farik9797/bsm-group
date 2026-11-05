@@ -14,7 +14,7 @@
   --color-ink: #F4F4F6; --color-muted: #A3A3AE; --color-dim: #74747F;
   --color-rule: #272730; --color-rule-strong: #3A3A45;
   --color-accent: #ADF728; --color-accent-hover: #C2FF55; --color-accent-ink: #050505; --color-shine: rgb(255 255 255 / 0.55); --color-accent-2: #8E43F1;
-  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22); --color-shade: rgb(7 7 10 / 0.95); --color-shade-0: rgb(7 7 10 / 0);
+  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22); --color-shade: rgb(7 7 10 / 0.95); --color-shade-0: rgb(7 7 10 / 0); --color-shade-mid: rgb(7 7 10 / 0.6); --color-shade-soft: rgb(7 7 10 / 0.35);
   --color-focus: #ADF728;
   --rt-ink: #C4C4CE; --rt-cloud: #2C2C36; --rt-dash: #3E3E4A; --rt-wave: #8E43F1; --rt-hole: #07070A; --rt-box-a: #ADF728; --rt-box-b: #4F7D0C;
   --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-body);

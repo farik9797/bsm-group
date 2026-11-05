@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=12");
-@import url("./base.css?v=12");
+@import url("./tokens.css?v=14");
+@import url("./base.css?v=14");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -13,7 +13,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: clip; }
-.is-off .geo__pulse, .is-off .btn--shine::after, .is-off .btn--shine .icon, .is-off .play__circle--ping::before, .is-off .play__circle--ping .icon, .is-off .stat__icon { animation-play-state: paused; }
+.is-off .btn--shine::after, .is-off .btn--shine .icon, .is-off .play__circle--ping::before, .is-off .play__circle--ping .icon, .is-off .stat__icon { animation-play-state: paused; }
 body { background: var(--color-paper); }
 .icon { width: 1.25em; height: 1.25em; flex: none; }
 .skip { position: absolute; left: var(--space-md); top: var(--space-md); z-index: var(--z-modal); padding: var(--space-sm) var(--space-md); background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-sm); transform: translateY(-200%); }
@@ -166,16 +166,8 @@ section { position: relative; }
 /* ---------- geography ---------- */
 .geo { padding-block: var(--space-3xl); overflow: clip; isolation: isolate; }
 .geo__map { position: absolute; inset: 0 -4% 0 -8%; z-index: -1; will-change: transform; }
-.geo__map img { width: 100%; height: 100%; object-fit: cover; }
-.geo__map::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-paper) 6%, var(--color-shade-0) 38%, var(--color-shade-0) 78%, var(--color-paper) 100%), linear-gradient(180deg, var(--color-paper) 0%, var(--color-shade-0) 18%, var(--color-shade-0) 82%, var(--color-paper) 100%); }
-.geo__routes { position: absolute; inset: 0; width: 100%; height: 100%; }
-.geo__arc { fill: none; stroke: var(--color-accent); stroke-width: 2.6; stroke-linecap: round; }
-.geo__dot { fill: var(--color-accent); }
-.geo__hub { fill: var(--color-accent); stroke: var(--color-paper); stroke-width: 3; }
-.geo__pulse { fill: none; stroke: var(--color-accent); stroke-width: 2; transform-origin: 546px 245px; transform-box: view-box; animation: pulse 2.4s var(--ease-out) infinite; }
-.geo__label rect { fill: var(--color-surface); stroke: var(--color-accent); stroke-width: 1.5; }
-.geo__label text { fill: var(--color-ink); font: 600 15px var(--font-body); }
-@keyframes pulse { from { transform: scale(1); opacity: 0.9; } to { transform: scale(3.4); opacity: 0; } }
+.geo__map video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.geo__map::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-paper) 6%, var(--color-shade-mid) 34%, var(--color-shade-soft) 52%, var(--color-shade-soft) 68%, var(--color-shade-mid) 82%, var(--color-paper) 100%), linear-gradient(180deg, var(--color-paper) 0%, var(--color-shade-0) 18%, var(--color-shade-0) 82%, var(--color-paper) 100%); }
 .geo__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: var(--space-xl); align-items: center; min-height: 440px; }
 .geo__copy { display: grid; gap: var(--space-md); justify-items: start; }
 .geo__copy .btn { margin-top: var(--space-sm); }
@@ -305,10 +297,9 @@ section { position: relative; }
 
 /* ---------- motion: hidden only when JS runs ---------- */
 .js [data-reveal], .js [data-rise] { opacity: 0; transform: translateY(24px); }
-.js .geo__arc { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .js .road__path--lit { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .no-motion [data-reveal], .no-motion [data-rise] { opacity: 1; transform: none; }
-.no-motion .geo__arc, .no-motion .road__path--lit, .no-motion .rt-lit { stroke-dashoffset: 0; }
+.no-motion .road__path--lit, .no-motion .rt-lit { stroke-dashoffset: 0; }
 .js .rt-lit { stroke-dasharray: 1; stroke-dashoffset: 1; }
 
 /* ---------- responsive ---------- */
@@ -333,13 +324,12 @@ section { position: relative; }
   .road { height: 100px; }
   .services__grid, .steps__grid, .projects__grid, .cta__grid { grid-template-columns: minmax(0, 1fr); }
   .cta__grid { padding-left: var(--gutter); }
-  .geo__label { display: none; }
   .reviews__grid { grid-template-columns: minmax(0, 1fr); }
   .projects::before, .steps::after { display: none; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .geo__inner { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: var(--space-2xl); }
   .geo__list { grid-column: 1; }
-  .geo__map { opacity: 0.55; }
+  .geo__map { opacity: 0.45; }
   .steps__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl) var(--space-lg); }
   .step__arrow { display: none; }
   .carousel__track { grid-auto-columns: 46%; }
@@ -378,9 +368,9 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js [data-reveal], .js [data-rise] { opacity: 1; transform: none; }
-  .js .geo__arc, .js .road__path--lit, .js .rt-lit { stroke-dashoffset: 0; }
+  .js .road__path--lit, .js .rt-lit { stroke-dashoffset: 0; }
   .rt-marker { display: none; }
-  .geo__pulse, .btn--shine::after, .btn--shine .icon, .play__circle--ping::before, .play__circle--ping .icon, .stat__icon { animation: none; }
+  .btn--shine::after, .btn--shine .icon, .play__circle--ping::before, .play__circle--ping .icon, .stat__icon { animation: none; }
   .card img, .proj img, .btn, .nav, .btn .icon, .fl label, .dots button::before { transition: none; }
   .card:hover img, .proj:hover img { transform: none; }
   .road__truck { display: none; }

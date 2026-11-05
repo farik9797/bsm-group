@@ -210,6 +210,8 @@
     } finally { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.firstChild.textContent = label; }
   });
 
+  const geoVideo = document.querySelector('[data-geo-video]');
+  if (geoVideo && !reduce) new IntersectionObserver(([e]) => { if (e.isIntersecting) geoVideo.play().catch(() => {}); else geoVideo.pause(); }, { rootMargin: '200px 0px' }).observe(geoVideo);
   if (reduce) { const v = document.querySelector('.hero video'); if (v) { v.removeAttribute('autoplay'); v.pause(); } }
   if (!hasGsap || reduce) return;
 
@@ -290,12 +292,6 @@
     gsap.from(types.querySelectorAll('.types__labels li'), { opacity: 0, y: 12, duration: 0.8, ease, stagger: 0.08, scrollTrigger: { trigger: types, start: 'top 75%' } });
   }
 
-  /* map: routes draw into Tashkent */
-  gsap.timeline({ scrollTrigger: { trigger: '.geo', start: 'top 70%', end: 'center 45%', scrub: 0.8 } })
-    .from('.geo__dot', { scale: 0, transformOrigin: 'center', transformBox: 'fill-box', stagger: 0.1, duration: 0.2 }, 0)
-    .to('.geo__arc', { strokeDashoffset: 0, stagger: 0.12, duration: 1 }, 0.1)
-    .from('.geo__hub', { scale: 0, transformOrigin: 'center', transformBox: 'fill-box', duration: 0.3 }, 0.9)
-    .from('.geo__label', { opacity: 0, y: 10, duration: 0.3 }, 1);
   gsap.fromTo('.geo__map', { scale: 1.1 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.geo', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from('[data-geo-list] li', { x: 60, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-geo-list]', start: 'top 85%' } });
 
@@ -336,7 +332,7 @@
     });
   }
 
-  /* endless loops (map pulse, scroll cue) pause while their section is off screen */
+  /* endless hero loops pause while the hero is off screen */
   const loopIo = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
   document.querySelectorAll('.hero, .geo').forEach((s) => loopIo.observe(s));
   const heroVideo = document.querySelector('.hero video');
