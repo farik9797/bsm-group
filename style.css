@@ -14,8 +14,8 @@
 /* Hallmark · answered F15 · services, map, why and contact grids keep different gaps as the mockup does */
 /* Hallmark · answered F20 · the footer legal row wraps to two items plus the e-mail at 1440 by design */
 /* Hallmark · answered F-motion · the client asked for immersive scroll motion; the theme's stillness is overridden by the user's words */
-@import url("./tokens.css");
-@import url("./base.css");
+@import url("./tokens.css?v=2");
+@import url("./base.css?v=2");
 
 /* ---------- base ---------- */
 html { scroll-behavior: smooth; }
