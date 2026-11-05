@@ -72,7 +72,9 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+  // popup triggers keep their #contact href only as the no-dialog fallback
+  const anchorSel = window.HTMLDialogElement ? 'a[href^="#"]:not([data-modal])' : 'a[href^="#"]';
+  document.querySelectorAll(anchorSel).forEach((a) => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');
       const el = id.length > 1 && document.querySelector(id);
@@ -92,16 +94,6 @@
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
   [...new Set(links.map((l) => l.getAttribute('href')))].forEach((h) => { const s = document.querySelector(h); if (s) io.observe(s); });
-
-  /* ---------- a chosen service travels into the form ---------- */
-  const serviceInput = document.getElementById('f-service');
-  const msg = document.getElementById('f-msg');
-  document.querySelectorAll('[data-service]').forEach((el) => {
-    el.addEventListener('click', () => {
-      serviceInput.value = el.dataset.service;
-      if (!msg.value) msg.value = el.dataset.service + ': ';
-    });
-  });
 
   /* ---------- all services ---------- */
   const moreBtn = document.querySelector('[data-more]');
@@ -161,10 +153,7 @@
     sync();
   }
 
-  /* ---------- form ---------- */
-  const form = document.querySelector('[data-form]');
-  const status = form.querySelector('[data-status]');
-  const phone = form.querySelector('#f-phone');
+  /* ---------- forms (section + popup) ---------- */
   // +998 XX XXX XX XX as the user types
   const fmtPhone = (v) => {
     let d = v.replace(/\D/g, '');
@@ -173,42 +162,73 @@
     const p = [d.slice(0, 3), d.slice(3, 5), d.slice(5, 8), d.slice(8, 10), d.slice(10, 12)].filter(Boolean);
     return '+' + p.join(' ');
   };
-  phone.addEventListener('focus', () => { if (!phone.value) phone.value = '+998 '; });
-  phone.addEventListener('blur', () => { if (phone.value.replace(/\D/g, '') === '998') phone.value = ''; });
-  phone.addEventListener('input', () => { phone.value = fmtPhone(phone.value); phone.removeAttribute('aria-invalid'); });
-  form.querySelector('#f-name').addEventListener('input', (e) => e.target.removeAttribute('aria-invalid'));
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    let ok = true;
-    form.querySelectorAll('[required]').forEach((f) => {
-      const bad = f === phone ? f.value.replace(/\D/g, '').length < 12 : !f.value.trim();
-      f.setAttribute('aria-invalid', String(bad));
-      if (bad) ok = false;
+  document.querySelectorAll('[data-form]').forEach((form) => {
+    const status = form.querySelector('[data-status]');
+    const phone = form.querySelector('input[type="tel"]');
+    phone.addEventListener('focus', () => { if (!phone.value) phone.value = '+998 '; });
+    phone.addEventListener('blur', () => { if (phone.value.replace(/\D/g, '') === '998') phone.value = ''; });
+    phone.addEventListener('input', () => { phone.value = fmtPhone(phone.value); phone.removeAttribute('aria-invalid'); });
+    form.querySelectorAll('[required]').forEach((f) => f.addEventListener('input', () => f.removeAttribute('aria-invalid')));
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let ok = true;
+      form.querySelectorAll('[required]').forEach((f) => {
+        const bad = f === phone ? f.value.replace(/\D/g, '').length < 12 : !f.value.trim();
+        f.setAttribute('aria-invalid', String(bad));
+        if (bad) ok = false;
+      });
+      status.classList.remove('is-ok');
+      status.classList.toggle('is-error', !ok);
+      if (!ok) { status.textContent = 'Укажите имя и телефон в формате +998 XX XXX XX XX.'; form.querySelector('[aria-invalid="true"]').focus(); return; }
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        status.textContent = 'Отправка подключается на этапе сборки сайта. Пока позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
+        return;
+      }
+      const btn = form.querySelector('[type="submit"]');
+      const label = btn.firstChild.textContent;
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.firstChild.textContent = 'Отправка… ';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
+        if (!res.ok) throw new Error(res.status);
+        status.classList.add('is-ok');
+        status.textContent = 'Заявка отправлена. Менеджер свяжется с вами.';
+        form.reset();
+      } catch {
+        status.classList.add('is-error');
+        status.textContent = 'Не удалось отправить. Позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
+      } finally { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.firstChild.textContent = label; }
     });
-    status.classList.remove('is-ok');
-    status.classList.toggle('is-error', !ok);
-    if (!ok) { status.textContent = 'Укажите имя и телефон в формате +998 XX XXX XX XX.'; form.querySelector('[aria-invalid="true"]').focus(); return; }
-    const endpoint = form.dataset.endpoint;
-    if (!endpoint) {
-      status.textContent = 'Отправка подключается на этапе сборки сайта. Пока позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
-      return;
-    }
-    const btn = form.querySelector('[type="submit"]');
-    const label = btn.firstChild.textContent;
-    btn.disabled = true;
-    btn.setAttribute('aria-busy', 'true');
-    btn.firstChild.textContent = 'Отправка… ';
-    try {
-      const res = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
-      if (!res.ok) throw new Error(res.status);
-      status.classList.add('is-ok');
-      status.textContent = 'Заявка отправлена. Менеджер свяжется с вами.';
-      form.reset();
-    } catch {
-      status.classList.add('is-error');
-      status.textContent = 'Не удалось отправить. Позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
-    } finally { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.firstChild.textContent = label; }
   });
+
+  /* ---------- lead popup ---------- */
+  const dialog = document.querySelector('[data-modal-dialog]');
+  if (dialog && dialog.showModal) {
+    let opener = null;
+    const close = () => {
+      if (!dialog.open || dialog.classList.contains('is-closing')) return;
+      if (reduce) { dialog.close(); return; }
+      dialog.classList.add('is-closing');
+      setTimeout(() => { dialog.classList.remove('is-closing'); dialog.close(); }, 220); // matches the CSS exit
+    };
+    dialog.addEventListener('close', () => { root.classList.remove('is-locked'); if (lenis) lenis.start(); if (opener) opener.focus(); });
+    dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); });
+    dialog.querySelectorAll('[data-modal-close]').forEach((b) => b.addEventListener('click', close));
+    document.querySelectorAll('[data-modal]').forEach((el) => el.addEventListener('click', (e) => {
+      e.preventDefault();
+      opener = el;
+      const svc = el.dataset.service;
+      dialog.querySelectorAll('input[name="service"]').forEach((r) => { r.checked = r.value === svc; });
+      if (!drawer.hidden) setDrawer(false);
+      root.classList.add('is-locked');
+      if (lenis) lenis.stop();
+      dialog.showModal();
+      dialog.querySelector(svc ? '#m-from' : '.chip-opt input').focus();
+    }));
+  }
 
   const geoVideo = document.querySelector('[data-geo-video]');
   if (geoVideo && !reduce) new IntersectionObserver(([e]) => { if (e.isIntersecting) geoVideo.play().catch(() => {}); else geoVideo.pause(); }, { rootMargin: '200px 0px' }).observe(geoVideo);

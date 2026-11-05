@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -53,7 +53,7 @@
           <a href="https://bsm-group.uz/en" hreflang="en">English</a>
         </div>
       </div>
-      <a class="btn btn--lime btn--sm nav__cta" data-magnet href="#contact">Рассчитать перевозку <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+      <a class="btn btn--lime btn--sm nav__cta" data-magnet href="#contact" data-modal>Рассчитать перевозку <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
       <button class="nav__burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Открыть меню">
         <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
       </button>
@@ -87,7 +87,7 @@
         </h1>
         <p class="hero__lead" data-rise>Надёжная логистика. Быстрые решения.<br>Ваш груз в надёжных руках.</p>
         <div class="hero__actions" data-rise>
-          <a class="btn btn--lime btn--shine" data-magnet href="#contact">Рассчитать перевозку <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+          <a class="btn btn--lime btn--shine" data-magnet href="#contact" data-modal>Рассчитать перевозку <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
           <a class="play" href="#why"><span class="play__circle play__circle--ping"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></span>Узнать больше</a>
         </div>
       </div>
@@ -126,16 +126,16 @@
       </div>
       <div>
         <ul class="cards" data-cards>
-          <li><a class="card" href="#contact" data-service="Автоперевозки"><img src="assets/img/fura.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Автомобильные<br>перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
-          <li><a class="card" href="#contact" data-service="Морские перевозки"><img src="assets/img/sea-freight.webp" alt="" loading="lazy" width="1200" height="548"><span class="card__title">Морские<br>перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
-          <li><a class="card" href="#contact" data-service="Авиаперевозки"><img src="assets/img/air-freight.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Авиационные<br>перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
-          <li><a class="card" href="#contact" data-service="Ж/д перевозки"><img src="assets/img/rail-transport.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Ж/Д перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Автоперевозки"><img src="assets/img/fura.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Автомобильные<br>перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Морские перевозки"><img src="assets/img/sea-freight.webp" alt="" loading="lazy" width="1200" height="548"><span class="card__title">Морские<br>перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Авиаперевозки"><img src="assets/img/air-freight.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Авиационные<br>перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Ж/д перевозки"><img src="assets/img/rail-transport.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Ж/Д перевозки</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
         </ul>
         <ul class="cards cards--more" id="cards-more" hidden>
-          <li><a class="card" href="#contact" data-service="Таможенное оформление"><img src="assets/img/customs-brokerage.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Таможенное оформление</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
-          <li><a class="card" href="#contact" data-service="Складские услуги"><img src="assets/img/warehouse-storage.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Складские услуги</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
-          <li><a class="card" href="#contact" data-service="Логистический консалтинг"><img src="assets/img/logistics-consulting.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Логистический консалтинг</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
-          <li><a class="card" href="#contact" data-service="Местная доставка"><img src="assets/img/domestic-logistics.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Доставка по Узбекистану</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Таможенное оформление"><img src="assets/img/customs-brokerage.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Таможенное оформление</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Складские услуги"><img src="assets/img/warehouse-storage.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Складские услуги</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Логистический консалтинг"><img src="assets/img/logistics-consulting.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Логистический консалтинг</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
+          <li><a class="card" href="#contact" data-modal data-service="Местная доставка"><img src="assets/img/domestic-logistics.webp" alt="" loading="lazy" width="1600" height="900"><span class="card__title">Доставка по Узбекистану</span><span class="card__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-r"/></svg></span></a></li>
         </ul>
       </div>
     </div>
@@ -239,11 +239,11 @@
       </div>
       <div class="carousel">
         <ul class="carousel__track" data-carousel>
-          <li><a class="proj" href="#contact" data-service="Морские перевозки"><img src="assets/img/container.webp" alt="" loading="lazy" width="1600" height="900"><span>Доставка<br>из Китая</span></a></li>
-          <li><a class="proj" href="#contact" data-service="Автоперевозки"><img src="assets/img/fura.webp" alt="" loading="lazy" width="1600" height="900"><span>Перевозки<br>по Европе</span></a></li>
-          <li><a class="proj" href="#contact" data-service="Авиаперевозки"><img src="assets/img/air-freight.webp" alt="" loading="lazy" width="1600" height="900"><span>Авиадоставка<br>в США</span></a></li>
-          <li><a class="proj" href="#contact" data-service="Ж/д перевозки"><img src="assets/img/china-internal-logistics.webp" alt="" loading="lazy" width="1600" height="900"><span>Логистика<br>в Турцию</span></a></li>
-          <li><a class="proj" href="#contact" data-service="Складские услуги"><img src="assets/img/warehouse-storage.webp" alt="" loading="lazy" width="1600" height="900"><span>Склады<br>в Китае</span></a></li>
+          <li><a class="proj" href="#contact" data-modal data-service="Морские перевозки"><img src="assets/img/container.webp" alt="" loading="lazy" width="1600" height="900"><span>Доставка<br>из Китая</span></a></li>
+          <li><a class="proj" href="#contact" data-modal data-service="Автоперевозки"><img src="assets/img/fura.webp" alt="" loading="lazy" width="1600" height="900"><span>Перевозки<br>по Европе</span></a></li>
+          <li><a class="proj" href="#contact" data-modal data-service="Авиаперевозки"><img src="assets/img/air-freight.webp" alt="" loading="lazy" width="1600" height="900"><span>Авиадоставка<br>в США</span></a></li>
+          <li><a class="proj" href="#contact" data-modal data-service="Ж/д перевозки"><img src="assets/img/china-internal-logistics.webp" alt="" loading="lazy" width="1600" height="900"><span>Логистика<br>в Турцию</span></a></li>
+          <li><a class="proj" href="#contact" data-modal data-service="Складские услуги"><img src="assets/img/warehouse-storage.webp" alt="" loading="lazy" width="1600" height="900"><span>Склады<br>в Китае</span></a></li>
         </ul>
         <div class="carousel__nav">
           <button type="button" class="round" data-prev aria-label="Предыдущий проект"><svg class="icon" aria-hidden="true"><use href="#i-prev"/></svg></button>
@@ -348,16 +348,44 @@
   </div>
 </footer>
 
+<dialog class="modal" id="lead" aria-labelledby="lead-title" data-modal-dialog>
+  <div class="modal__panel">
+    <button type="button" class="round modal__close" data-modal-close aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <h2 class="modal__title" id="lead-title">Рассчитать перевозку</h2>
+    <p class="modal__lead">Ответим в рабочее время и предложим маршрут, сроки и стоимость.</p>
+    <form class="form form--modal" data-form data-endpoint="" novalidate>
+      <fieldset class="chips-opt">
+        <legend>Услуга</legend>
+        <label class="chip-opt"><input type="radio" name="service" value="Автоперевозки"><span>Автоперевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Морские перевозки"><span>Морские перевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Авиаперевозки"><span>Авиаперевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Ж/д перевозки"><span>Ж/д перевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Таможенное оформление"><span>Таможенное оформление</span></label><label class="chip-opt"><input type="radio" name="service" value="Складские услуги"><span>Складские услуги</span></label><label class="chip-opt"><input type="radio" name="service" value="Логистический консалтинг"><span>Логистический консалтинг</span></label>
+      </fieldset>
+      <div class="form__row">
+        <div class="fl"><input id="m-from" name="from" type="text" placeholder=" " autocomplete="off"><label for="m-from">Откуда</label></div>
+        <div class="fl"><input id="m-to" name="to" type="text" placeholder=" " autocomplete="off"><label for="m-to">Куда</label></div>
+      </div>
+      <div class="form__row">
+        <div class="fl"><input id="m-name" name="name" type="text" autocomplete="name" placeholder=" " required aria-describedby="m-status"><label for="m-name">Ваше имя</label></div>
+        <div class="fl"><input id="m-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder=" " required aria-describedby="m-status"><label for="m-phone">Телефон</label></div>
+      </div>
+      <div class="fl fl--area"><textarea id="m-msg" name="message" rows="3" placeholder=" "></textarea><label for="m-msg">Груз: что везём, вес, объём</label></div>
+      <div class="form__end">
+        <button class="btn btn--lime btn--lg" type="submit">Отправить заявку <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
+        <p class="form__status" id="m-status" role="status" data-status></p>
+      </div>
+    </form>
+    <p class="modal__alt">Или сразу: <a href="tel:+998555200202"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>+998 55 520 02 02</a><a href="https://t.me/bsmtrade"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a></p>
+  </div>
+</dialog>
+
 <div class="dock" aria-label="Быстрая связь">
   <a href="tel:+998555200202"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>Позвонить</a>
   <a href="https://t.me/bsmtrade"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a>
-  <a class="dock__main" href="#contact">Заявка</a>
+  <a class="dock__main" href="#contact" data-modal>Заявка</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=16" defer></script>
+<script src="main.js?v=17" defer></script>
 </body>
 </html>
