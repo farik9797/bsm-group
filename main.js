@@ -7,7 +7,7 @@
   /* ---------- smooth scroll ---------- */
   let lenis = null;
   if (hasGsap && !reduce && window.Lenis) {
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis = new Lenis({ duration: 1.15, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -30,13 +30,39 @@
     burger.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
   };
   burger.addEventListener('click', () => setDrawer(drawer.hidden));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) { setDrawer(false); burger.focus(); } });
+
+  // dropdowns: services and language
+  const dds = [...document.querySelectorAll('[data-dd]')];
+  const closeDd = (except) => dds.forEach((d) => {
+    if (d === except) return;
+    d.querySelector('.dd__btn').setAttribute('aria-expanded', 'false');
+    d.querySelector('.dd__menu').hidden = true;
+  });
+  dds.forEach((d) => {
+    const btn = d.querySelector('.dd__btn');
+    const menu = d.querySelector('.dd__menu');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = menu.hidden;
+      closeDd(d);
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.addEventListener('click', () => closeDd());
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeDd();
+    if (!drawer.hidden) { setDrawer(false); burger.focus(); }
+  });
 
   let lastY = 0;
   const onScroll = () => {
     const y = window.scrollY;
     nav.classList.toggle('is-solid', y > 40 || !drawer.hidden);
-    nav.classList.toggle('is-hidden', y > 500 && y > lastY && drawer.hidden);
+    const hide = y > 500 && y > lastY && drawer.hidden;
+    nav.classList.toggle('is-hidden', hide);
+    if (hide) closeDd();
     lastY = y;
   };
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -49,24 +75,57 @@
       if (!el) return;
       e.preventDefault();
       setDrawer(false);
+      closeDd();
       scrollToEl(el);
       history.replaceState(null, '', id);
     });
   });
 
-  const links = [...document.querySelectorAll('.nav__links a[href^="#"]')];
+  const links = [...document.querySelectorAll('.nav__links > a[href^="#"]')];
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       if (en.isIntersecting) links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === '#' + en.target.id));
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
-  links.forEach((l) => { const s = document.querySelector(l.getAttribute('href')); if (s) io.observe(s); });
+  [...new Set(links.map((l) => l.getAttribute('href')))].forEach((h) => { const s = document.querySelector(h); if (s) io.observe(s); });
 
-  /* ---------- services prefill the form ---------- */
-  const select = document.getElementById('f-service');
+  /* ---------- a chosen service travels into the form ---------- */
+  const serviceInput = document.getElementById('f-service');
+  const msg = document.getElementById('f-msg');
   document.querySelectorAll('[data-service]').forEach((el) => {
-    el.addEventListener('click', () => { select.value = el.dataset.service; });
+    el.addEventListener('click', () => {
+      serviceInput.value = el.dataset.service;
+      if (!msg.value) msg.value = el.dataset.service + ': ';
+    });
   });
+
+  /* ---------- all services ---------- */
+  const moreBtn = document.querySelector('[data-more]');
+  const more = document.getElementById('cards-more');
+  moreBtn.addEventListener('click', () => {
+    const open = more.hidden;
+    more.hidden = !open;
+    moreBtn.setAttribute('aria-expanded', String(open));
+    moreBtn.firstChild.textContent = open ? 'Свернуть ' : 'Все услуги ';
+    if (open && hasGsap && !reduce) {
+      gsap.fromTo(more.querySelectorAll('.card'), { clipPath: 'inset(100% 0 0 0 round 20px)' }, { clipPath: 'inset(0% 0 0 0 round 20px)', duration: 1, ease: 'expo.out', stagger: 0.08 });
+    }
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
+
+  /* ---------- projects carousel ---------- */
+  const track = document.querySelector('[data-carousel]');
+  const prev = document.querySelector('[data-prev]');
+  const next = document.querySelector('[data-next]');
+  const step = () => track.querySelector('li').getBoundingClientRect().width + 16;
+  const syncNav = () => {
+    prev.disabled = track.scrollLeft < 4;
+    next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+  };
+  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }));
+  track.addEventListener('scroll', syncNav, { passive: true });
+  syncNav();
 
   /* ---------- form ---------- */
   const form = document.querySelector('[data-form]');
@@ -105,66 +164,100 @@
 
   /* ================= motion ================= */
   gsap.registerPlugin(ScrollTrigger);
+  if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
   const ease = 'expo.out';
-  const fmt = (v, dec) => dec
-    ? v.toFixed(dec).replace('.', ',')
-    : Math.round(v).toLocaleString('ru-RU').replace(/ /g, ' ');
+  const fmt = (v, dec) => dec ? v.toFixed(dec) : Math.round(v).toLocaleString('ru-RU').replace(/ /g, ' ');
 
-  /* hero intro */
+  /* hero: lines rise out of a mask, letters of the lime line follow */
   const heroImg = document.querySelector('[data-hero-img]');
+  document.querySelectorAll('[data-split] .line').forEach((line) => {
+    const inner = document.createElement('span');
+    inner.className = 'line__in';
+    inner.style.display = 'inline-block';
+    while (line.firstChild) inner.appendChild(line.firstChild);
+    line.appendChild(inner);
+    line.style.overflow = 'clip';
+    // background-clip: text must sit on the element that moves
+    if (line.classList.contains('line--grad')) { line.classList.remove('line--grad'); inner.classList.add('line--grad'); }
+  });
   const counters = document.querySelectorAll('[data-count]');
   counters.forEach((c) => { c.textContent = fmt(0, +c.dataset.dec || 0); });
   gsap.timeline({ defaults: { ease } })
-    .from(heroImg, { scale: 1.18, opacity: 0, duration: 2.2 }, 0)
-    .to('.hero__title .line > span', { y: 0, duration: 1.3, stagger: 0.12 }, 0.2)
-    .to('[data-rise]', { opacity: 1, y: 0, duration: 1, stagger: 0.1 }, 0.7)
+    .from(heroImg, { scale: 1.25, xPercent: 8, opacity: 0, duration: 2.4 }, 0)
+    .from('.line__in', { yPercent: 115, rotate: 4, duration: 1.4, stagger: 0.13 }, 0.15)
+    .to('[data-rise]', { opacity: 1, y: 0, duration: 1, stagger: 0.08 }, 0.7)
     .add(() => counters.forEach((c) => {
       const end = +c.dataset.count, dec = +c.dataset.dec || 0, o = { v: 0 };
-      gsap.to(o, { v: end, duration: 2, ease: 'power3.out', onUpdate: () => { c.textContent = fmt(o.v, dec); } });
-    }), 1);
+      gsap.to(o, { v: end, duration: 2.2, ease: 'power3.out', onUpdate: () => { c.textContent = fmt(o.v, dec); } });
+    }), 1.1);
 
-  // truck drifts and the hero dims as you leave it
-  gsap.to(heroImg, { yPercent: 12, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero__inner', { yPercent: -18, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to(heroImg, { yPercent: 14, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.hero__inner', { yPercent: -20, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: true } });
 
-  /* reveals */
+  /* road: the truck drives the curve and lights it behind itself */
+  const truck = document.querySelector('[data-road-truck]');
+  const lit = document.querySelector('[data-road]');
+  if (window.MotionPathPlugin) {
+    const roadTl = gsap.timeline({ scrollTrigger: { trigger: '.road', start: 'top 85%', end: 'bottom 15%', scrub: 0.8, invalidateOnRefresh: true } });
+    roadTl.set(truck, { opacity: 1 })
+      .to(truck, { ease: 'none', motionPath: { path: lit, align: lit, alignOrigin: [0.5, 0.5] } }, 0)
+      .to(lit, { strokeDashoffset: 0, ease: 'none' }, 0);
+  }
+
+  /* section heads */
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 88%', once: true,
     onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1, ease, stagger: 0.08 }),
   });
 
-  /* service cards rise in a wave */
-  gsap.from('.cards li', {
-    y: 80, opacity: 0, rotate: 2, duration: 1.1, ease, stagger: { each: 0.07, grid: 'auto', from: 'start' },
+  /* service cards: a shutter opens each photo */
+  gsap.fromTo('[data-cards] .card', { clipPath: 'inset(100% 0% 0% 0% round 20px)' }, {
+    clipPath: 'inset(0% 0% 0% 0% round 20px)', duration: 1.3, ease, stagger: 0.1,
     scrollTrigger: { trigger: '[data-cards]', start: 'top 85%' },
   });
+  gsap.from('[data-cards] .card img', { scale: 1.3, duration: 1.6, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-cards]', start: 'top 85%' } });
 
-  /* map: routes draw into Tashkent as you scroll */
+  /* map: routes draw into Tashkent */
   gsap.timeline({ scrollTrigger: { trigger: '.geo', start: 'top 70%', end: 'center 45%', scrub: 0.8 } })
     .from('.geo__dot', { scale: 0, transformOrigin: 'center', transformBox: 'fill-box', stagger: 0.1, duration: 0.2 }, 0)
-    .to('.geo__arc', { strokeDashoffset: 0, stagger: 0.15, duration: 1 }, 0.1)
-    .from('.geo__hub', { scale: 0, transformOrigin: 'center', transformBox: 'fill-box', duration: 0.3 }, 0.9);
-  gsap.fromTo('.geo__map', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.geo', start: 'top bottom', end: 'bottom top', scrub: true } });
+    .to('.geo__arc', { strokeDashoffset: 0, stagger: 0.12, duration: 1 }, 0.1)
+    .from('.geo__hub', { scale: 0, transformOrigin: 'center', transformBox: 'fill-box', duration: 0.3 }, 0.9)
+    .from('.geo__label', { opacity: 0, y: 10, duration: 0.3 }, 1);
+  gsap.fromTo('.geo__map', { scale: 1.1 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.geo', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.from('[data-geo-list] li', { x: 60, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-geo-list]', start: 'top 85%' } });
 
-  /* steps: the line fills and the truck drives to the last step */
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 961px)', () => {
-    const track = document.querySelector('.steps__line');
-    const truck = document.querySelector('[data-steps-truck]');
-    gsap.timeline({ scrollTrigger: { trigger: '.steps', start: 'top 70%', end: 'bottom 60%', scrub: 0.8 } })
-      .set(truck, { opacity: 1 })
-      .to('[data-steps-fill]', { scaleX: 1, ease: 'none' }, 0)
-      .to(truck, { x: () => track.clientWidth - truck.clientWidth, ease: 'none' }, 0);
-    gsap.from('.step', { y: 40, opacity: 0, duration: 0.9, ease, stagger: 0.12, scrollTrigger: { trigger: '.steps', start: 'top 75%' } });
+  /* advantages */
+  gsap.from('[data-feats] .feat', { y: 50, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-feats]', start: 'top 85%' } });
+  gsap.from('.why__photo', { clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)', duration: 1.6, ease, scrollTrigger: { trigger: '.why', start: 'top 75%' } });
+
+  /* steps: each one lands, the connector draws to the next */
+  const stl = gsap.timeline({ scrollTrigger: { trigger: '[data-steps]', start: 'top 80%' } });
+  document.querySelectorAll('[data-steps] > li').forEach((li) => {
+    if (li.classList.contains('step__arrow')) stl.from(li.querySelector('span'), { scaleX: 0, duration: 0.5, ease: 'power2.out' }).from(li.querySelector('svg'), { x: -10, opacity: 0, duration: 0.3 }, '<0.3');
+    else stl.from(li, { y: 30, opacity: 0, duration: 0.6, ease });
   });
 
-  /* clients light up one by one */
-  gsap.to('.clients__list li', { color: 'var(--color-ink)', stagger: 0.12, duration: 0.4, scrollTrigger: { trigger: '.clients', start: 'top 80%' } });
+  /* projects slide in from the right */
+  gsap.from('[data-carousel] li', { x: 120, opacity: 0, duration: 1.2, ease, stagger: 0.08, scrollTrigger: { trigger: '[data-carousel]', start: 'top 85%' } });
 
-  /* parallax inside framed photos */
+  /* parallax in framed photos */
   document.querySelectorAll('[data-parallax]').forEach((img) => {
     gsap.fromTo(img, { yPercent: -12 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
+
+  /* magnetic lime buttons */
+  if (matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('[data-magnet]').forEach((b) => {
+      const xTo = gsap.quickTo(b, 'x', { duration: 0.5, ease: 'power3' });
+      const yTo = gsap.quickTo(b, 'y', { duration: 0.5, ease: 'power3' });
+      b.addEventListener('pointermove', (e) => {
+        const r = b.getBoundingClientRect();
+        xTo((e.clientX - r.left - r.width / 2) * 0.25);
+        yTo((e.clientY - r.top - r.height / 2) * 0.35);
+      });
+      b.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
+    });
+  }
 
   window.addEventListener('load', () => ScrollTrigger.refresh());
 })();
