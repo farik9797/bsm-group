@@ -135,7 +135,18 @@
   const form = document.querySelector('[data-form]');
   const status = form.querySelector('[data-status]');
   const phone = form.querySelector('#f-phone');
+  // +998 XX XXX XX XX as the user types
+  const fmtPhone = (v) => {
+    let d = v.replace(/\D/g, '');
+    if (!d.startsWith('998')) d = '998' + d.replace(/^998?/, '');
+    d = d.slice(0, 12);
+    const p = [d.slice(0, 3), d.slice(3, 5), d.slice(5, 8), d.slice(8, 10), d.slice(10, 12)].filter(Boolean);
+    return '+' + p.join(' ');
+  };
   phone.addEventListener('focus', () => { if (!phone.value) phone.value = '+998 '; });
+  phone.addEventListener('blur', () => { if (phone.value.replace(/\D/g, '') === '998') phone.value = ''; });
+  phone.addEventListener('input', () => { phone.value = fmtPhone(phone.value); phone.removeAttribute('aria-invalid'); });
+  form.querySelector('#f-name').addEventListener('input', (e) => e.target.removeAttribute('aria-invalid'));
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     let ok = true;
@@ -144,24 +155,29 @@
       f.setAttribute('aria-invalid', String(bad));
       if (bad) ok = false;
     });
+    status.classList.remove('is-ok');
     status.classList.toggle('is-error', !ok);
     if (!ok) { status.textContent = 'Укажите имя и телефон в формате +998 XX XXX XX XX.'; form.querySelector('[aria-invalid="true"]').focus(); return; }
     const endpoint = form.dataset.endpoint;
     if (!endpoint) {
-      status.textContent = 'Отправка подключается на этапе сборки сайта. Пока позвоните: +998 55 520 02 02.';
+      status.textContent = 'Отправка подключается на этапе сборки сайта. Пока позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
       return;
     }
     const btn = form.querySelector('[type="submit"]');
+    const label = btn.firstChild.textContent;
     btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
+    btn.firstChild.textContent = 'Отправка… ';
     try {
       const res = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
       if (!res.ok) throw new Error(res.status);
+      status.classList.add('is-ok');
       status.textContent = 'Заявка отправлена. Менеджер свяжется с вами.';
       form.reset();
     } catch {
       status.classList.add('is-error');
-      status.textContent = 'Не удалось отправить. Позвоните: +998 55 520 02 02.';
-    } finally { btn.disabled = false; }
+      status.textContent = 'Не удалось отправить. Позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
+    } finally { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.firstChild.textContent = label; }
   });
 
   if (!hasGsap || reduce) return;
