@@ -1,0 +1,39 @@
+[
+ {
+  "shape": "Station Sequence",
+  "theme": "wayfind",
+  "axes": "light/grotesk-sans/neutral",
+  "hero": "Banner on ink, inline photo pill",
+  "nav": "ink strip",
+  "footer": "mast",
+  "imagery": "client photographs",
+  "photos": [
+   "hero",
+   "container",
+   "blog-warehouses",
+   "services x8 hover"
+  ],
+  "entry": "hero-intro + pill-to-fullscreen photo",
+  "fingerprint": "ink-hero/expand/rows/pinned-steps/board/split/list/form",
+  "sections": [
+   "hero",
+   "expand",
+   "services",
+   "route",
+   "board",
+   "about",
+   "blog",
+   "contact",
+   "footer"
+  ],
+  "signature": "departure board of BSM pickup points",
+  "waived": [
+   "1",
+   "64",
+   "49b"
+  ],
+  "prompt": "BSM Group premium logistics homepage, immersive scroll",
+  "date": "2026-11-05",
+  "mode": "build"
+ }
+]
