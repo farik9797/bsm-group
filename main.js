@@ -237,6 +237,25 @@
   });
   gsap.from('[data-cards] .card img', { scale: 1.3, duration: 1.6, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-cards]', start: 'top 85%' } });
 
+  /* transport types: the marker drives the winding route, each vehicle rolls in to its spot */
+  const types = document.querySelector('[data-types]');
+  if (types && window.MotionPathPlugin) {
+    const rtPath = types.querySelector('[data-rt-path]');
+    const rtMarker = types.querySelector('[data-rt-marker]');
+    gsap.timeline({ scrollTrigger: { trigger: types, start: 'top 55%', end: 'bottom 55%', scrub: 1 } })
+      .to(rtPath, { strokeDashoffset: 0, ease: 'none' }, 0)
+      .to(rtMarker, { ease: 'none', motionPath: { path: rtPath, align: rtPath, alignOrigin: [0.5, 0.5] } }, 0);
+    const shift = { left: { x: -260 }, right: { x: 260 }, up: { y: 120 } };
+    types.querySelectorAll('.rt-veh').forEach((veh) => {
+      gsap.from(veh, { ...shift[veh.dataset.from], opacity: 0, ease: 'power2.out', scrollTrigger: { trigger: veh, start: 'top 92%', end: 'top 58%', scrub: 0.8 } });
+    });
+    types.querySelectorAll('.rt-cloud').forEach((cloud) => {
+      gsap.fromTo(cloud, { x: -70 * +cloud.dataset.drift }, { x: 70 * +cloud.dataset.drift, ease: 'none', scrollTrigger: { trigger: cloud, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+    gsap.fromTo(types.querySelector('.rt-waves'), { x: -40 }, { x: 40, ease: 'none', scrollTrigger: { trigger: types, start: 'center bottom', end: 'bottom top', scrub: true } });
+    gsap.from(types.querySelectorAll('.types__labels li'), { opacity: 0, y: 12, duration: 0.8, ease, stagger: 0.08, scrollTrigger: { trigger: types, start: 'top 75%' } });
+  }
+
   /* map: routes draw into Tashkent */
   gsap.timeline({ scrollTrigger: { trigger: '.geo', start: 'top 70%', end: 'center 45%', scrub: 0.8 } })
     .from('.geo__dot', { scale: 0, transformOrigin: 'center', transformBox: 'fill-box', stagger: 0.1, duration: 0.2 }, 0)

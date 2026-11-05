@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=6");
-@import url("./base.css?v=6");
+@import url("./tokens.css?v=7");
+@import url("./base.css?v=7");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -137,6 +137,18 @@ section { position: relative; }
 .card:hover .card__go { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
 .card:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 
+/* ---------- transport types on the route ---------- */
+.types { padding-block: var(--space-2xl) var(--space-3xl); overflow: clip; }
+.types__head { display: grid; gap: var(--space-md); justify-items: start; max-width: 44rem; }
+.types__map { position: relative; max-width: 1080px; margin: var(--space-2xl) auto 0; padding-bottom: var(--space-xl); }
+.types__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.rt-lit { fill: none; stroke: var(--color-accent); stroke-width: 5; stroke-linecap: round; }
+.rt-marker { color: var(--color-accent-ink); will-change: transform; }
+.rt-marker circle { fill: var(--color-accent); stroke: var(--color-paper); stroke-width: 6; }
+.rt-veh, .rt-cloud, .rt-waves { will-change: transform; }
+.types__labels { list-style: none; margin: 0; padding: 0; }
+.types__labels li { position: absolute; left: var(--x); top: var(--y); translate: -50% 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-muted); white-space: nowrap; }
+
 /* ---------- geography ---------- */
 .geo { padding-block: var(--space-3xl); overflow: clip; isolation: isolate; }
 .geo__map { position: absolute; inset: 0 -4% 0 -8%; z-index: -1; will-change: transform; }
@@ -255,7 +267,8 @@ section { position: relative; }
 .js .geo__arc { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .js .road__path--lit { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .no-motion [data-reveal], .no-motion [data-rise] { opacity: 1; transform: none; }
-.no-motion .geo__arc, .no-motion .road__path--lit { stroke-dashoffset: 0; }
+.no-motion .geo__arc, .no-motion .road__path--lit, .no-motion .rt-lit { stroke-dashoffset: 0; }
+.js .rt-lit { stroke-dasharray: 1; stroke-dashoffset: 1; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 80rem) {
@@ -299,6 +312,9 @@ section { position: relative; }
   .footer__nav { margin-inline: 0; }
 }
 @media (max-width: 40rem) {
+  .types__labels { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-lg); }
+  .types__labels li { position: static; translate: none; padding: var(--space-2xs) var(--space-sm); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); font-size: var(--text-sm); color: var(--color-ink); }
+  .types__map { margin-top: var(--space-xl); }
   .badge, .scroll-cue, .step__num, .footer__legal, .footer__credits, .stat dt { font-size: var(--text-sm); }
   .nav .logo { width: 76px; }
   .lang { display: none; }
@@ -317,7 +333,8 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js [data-reveal], .js [data-rise] { opacity: 1; transform: none; }
-  .js .geo__arc, .js .road__path--lit { stroke-dashoffset: 0; }
+  .js .geo__arc, .js .road__path--lit, .js .rt-lit { stroke-dashoffset: 0; }
+  .rt-marker { display: none; }
   .geo__pulse, .scroll-cue .icon { animation: none; }
   .card img, .proj img, .btn, .nav, .btn .icon, .fl label { transition: none; }
   .card:hover img, .proj:hover img { transform: none; }
