@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=8");
-@import url("./base.css?v=8");
+@import url("./tokens.css?v=9");
+@import url("./base.css?v=9");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -82,7 +82,7 @@ section { position: relative; }
 /* ---------- hero ---------- */
 .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-block: calc(76px + var(--space-xl)) var(--space-lg); overflow: clip; isolation: isolate; }
 .hero__media { position: absolute; inset: 0 0 0 30%; z-index: -1; margin: 0; }
-.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 55%; will-change: transform; }
+.hero__media video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 60% 55%; will-change: transform; }
 .hero__media::after { content: ""; position: absolute; inset: 0; background:
   linear-gradient(90deg, var(--color-paper) 0%, var(--color-shade) 10%, var(--color-shade-0) 42%),
   linear-gradient(180deg, var(--color-paper) 0%, var(--color-shade-0) 20%),
@@ -312,7 +312,7 @@ section { position: relative; }
   .hero__inner { grid-template-columns: minmax(0, 1fr); }
   .hero__chip { display: none; }
   .hero__media { inset: 0; }
-  .hero__media img { object-position: 62% 50%; opacity: 0.45; }
+  .hero__media video { object-position: 62% 50%; opacity: 0.45; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg) 0; padding: var(--space-md) 0; }
   .stat { padding-inline: var(--space-md); }
   .stat:nth-child(3) { border-left: 0; }

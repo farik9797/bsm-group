@@ -210,6 +210,7 @@
     } finally { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.firstChild.textContent = label; }
   });
 
+  if (reduce) { const v = document.querySelector('.hero video'); if (v) { v.removeAttribute('autoplay'); v.pause(); } }
   if (!hasGsap || reduce) return;
 
   /* ================= motion ================= */
@@ -335,6 +336,8 @@
   /* endless loops (map pulse, scroll cue) pause while their section is off screen */
   const loopIo = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
   document.querySelectorAll('.hero, .geo').forEach((s) => loopIo.observe(s));
+  const heroVideo = document.querySelector('.hero video');
+  if (heroVideo) new IntersectionObserver(([e]) => { if (e.isIntersecting) heroVideo.play().catch(() => {}); else heroVideo.pause(); }).observe(heroVideo);
 
   window.addEventListener('load', () => ScrollTrigger.refresh());
 })();
