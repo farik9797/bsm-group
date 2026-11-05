@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=11");
-@import url("./base.css?v=11");
+@import url("./tokens.css?v=12");
+@import url("./base.css?v=12");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -115,9 +115,6 @@ section { position: relative; }
 .stat:nth-child(3) .stat__icon { animation-delay: 1s; }
 .stat:nth-child(4) .stat__icon { animation-delay: 1.5s; }
 @keyframes breathe { 0%, 100% { translate: 0 0; scale: 1; } 50% { translate: 0 -3px; scale: 1.06; } }
-.stat__num { position: relative; display: inline-block; margin-bottom: var(--space-xs); }
-.stat__num::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; border-radius: var(--radius-pill); background: var(--color-accent); transform: scaleX(0); transform-origin: left center; transition: transform 900ms var(--ease-out); }
-.stat.is-in .stat__num::after { transform: scaleX(1); }
 .stat:hover .stat__icon { animation-play-state: paused; }
 
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: var(--space-lg) var(--space-md); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-card); background: var(--color-glass); }
@@ -384,7 +381,6 @@ section { position: relative; }
   .js .geo__arc, .js .road__path--lit, .js .rt-lit { stroke-dashoffset: 0; }
   .rt-marker { display: none; }
   .geo__pulse, .btn--shine::after, .btn--shine .icon, .play__circle--ping::before, .play__circle--ping .icon, .stat__icon { animation: none; }
-  .stat__num::after { transform: scaleX(1); transition: none; }
   .card img, .proj img, .btn, .nav, .btn .icon, .fl label, .dots button::before { transition: none; }
   .card:hover img, .proj:hover img { transform: none; }
   .road__truck { display: none; }
