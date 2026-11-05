@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/road-truck-dark.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -271,6 +271,58 @@
     </div>
   </section>
 
+  <!-- Reviews: placeholders in [brackets] until the client sends real ones -->
+  <section class="reviews" id="reviews">
+    <div class="reviews__glow" aria-hidden="true"></div>
+    <div class="container reviews__grid">
+      <div class="reviews__head">
+        <p class="eyebrow" data-reveal>Отзывы клиентов</p>
+        <h2 data-reveal>Нам доверяют<br>ведущие компании</h2>
+        <p class="lead" data-reveal>Партнёрство с BSM Logistics —<br>это гарантия качества и результата.</p>
+        <a class="btn btn--outline btn--sm" href="https://t.me/bsmtrade" data-reveal>Оставить отзыв <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+      </div>
+      <div class="reviews__slider">
+        <ul class="reviews__track" data-reviews aria-label="Отзывы клиентов">
+          <li class="review" aria-roledescription="слайд" aria-label="Отзыв 1 из 3">
+            <article class="review__card">
+              <p class="review__company">[Компания]</p>
+              <blockquote class="review__quote">«[Текст отзыва клиента: 2–3 предложения о том, что везли, откуда и как прошла доставка.]»</blockquote>
+              <footer class="review__author"><strong>[Имя Фамилия]</strong><span>[Должность, компания]</span></footer>
+            </article>
+            <div class="review__photo" data-slot="review-1" aria-hidden="true"><span>ИФ</span></div>
+          </li>
+          <li class="review" aria-roledescription="слайд" aria-label="Отзыв 2 из 3">
+            <article class="review__card">
+              <p class="review__company">[Компания]</p>
+              <blockquote class="review__quote">«[Текст отзыва клиента: 2–3 предложения о том, что везли, откуда и как прошла доставка.]»</blockquote>
+              <footer class="review__author"><strong>[Имя Фамилия]</strong><span>[Должность, компания]</span></footer>
+            </article>
+            <div class="review__photo" data-slot="review-2" aria-hidden="true"><span>ИФ</span></div>
+          </li>
+          <li class="review" aria-roledescription="слайд" aria-label="Отзыв 3 из 3">
+            <article class="review__card">
+              <p class="review__company">[Компания]</p>
+              <blockquote class="review__quote">«[Текст отзыва клиента: 2–3 предложения о том, что везли, откуда и как прошла доставка.]»</blockquote>
+              <footer class="review__author"><strong>[Имя Фамилия]</strong><span>[Должность, компания]</span></footer>
+            </article>
+            <div class="review__photo" data-slot="review-3" aria-hidden="true"><span>ИФ</span></div>
+          </li>
+        </ul>
+        <div class="reviews__nav">
+          <button type="button" class="round" data-rv-prev aria-label="Предыдущий отзыв"><svg class="icon" aria-hidden="true"><use href="#i-prev"/></svg></button>
+          <div class="dots" data-rv-dots role="tablist" aria-label="Выбор отзыва"></div>
+          <button type="button" class="round" data-rv-next aria-label="Следующий отзыв"><svg class="icon" aria-hidden="true"><use href="#i-next"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="container clients-row">
+      <h3 class="clients-row__title">Среди наших клиентов</h3>
+      <ul class="clients-row__list">
+        <li>AKFA</li><li>Afex</li><li>Mexmash</li><li>Xiaomi</li><li>Atlant Fortuna</li><li>Goodwell</li><li>Alutex</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta" id="contact">
     <figure class="cta__earth" aria-hidden="true"><img src="assets/img/earth-night.webp" alt="" width="1400" height="933" loading="lazy" data-parallax></figure>
@@ -324,6 +376,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=7" defer></script>
+<script src="main.js?v=8" defer></script>
 </body>
 </html>

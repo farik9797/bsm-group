@@ -131,6 +131,36 @@
   track.addEventListener('scroll', syncNav, { passive: true });
   syncNav();
 
+  /* ---------- reviews slider: arrows, dots, swipe ---------- */
+  const rvTrack = document.querySelector('[data-reviews]');
+  if (rvTrack) {
+    const slides = [...rvTrack.children];
+    const dotsBox = document.querySelector('[data-rv-dots]');
+    const rvPrev = document.querySelector('[data-rv-prev]');
+    const rvNext = document.querySelector('[data-rv-next]');
+    const go = (i) => rvTrack.scrollTo({ left: i * rvTrack.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+    const dots = slides.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', `Отзыв ${i + 1}`);
+      b.addEventListener('click', () => go(i));
+      dotsBox.appendChild(b);
+      return b;
+    });
+    const current = () => Math.round(rvTrack.scrollLeft / rvTrack.clientWidth);
+    const sync = () => {
+      const i = current();
+      dots.forEach((d, k) => d.setAttribute('aria-selected', String(k === i)));
+      rvPrev.disabled = i === 0;
+      rvNext.disabled = i === slides.length - 1;
+    };
+    rvPrev.addEventListener('click', () => go(Math.max(0, current() - 1)));
+    rvNext.addEventListener('click', () => go(Math.min(slides.length - 1, current() + 1)));
+    rvTrack.addEventListener('scroll', sync, { passive: true });
+    sync();
+  }
+
   /* ---------- form ---------- */
   const form = document.querySelector('[data-form]');
   const status = form.querySelector('[data-status]');
@@ -275,6 +305,10 @@
     if (li.classList.contains('step__arrow')) stl.from(li.querySelector('span'), { scaleX: 0, duration: 0.5, ease: 'power2.out' }).from(li.querySelector('svg'), { x: -10, opacity: 0, duration: 0.3 }, '<0.3');
     else stl.from(li, { y: 30, opacity: 0, duration: 0.6, ease });
   });
+
+  /* reviews: the card slides over the portrait */
+  gsap.from('.reviews__slider', { x: 80, opacity: 0, duration: 1.2, ease, scrollTrigger: { trigger: '.reviews', start: 'top 75%' } });
+  gsap.from('.clients-row__list li', { y: 20, opacity: 0, duration: 0.8, ease, stagger: 0.06, scrollTrigger: { trigger: '.clients-row', start: 'top 90%' } });
 
   /* projects slide in from the right */
   gsap.from('[data-carousel] li', { x: 120, opacity: 0, duration: 1.2, ease, stagger: 0.08, scrollTrigger: { trigger: '[data-carousel]', start: 'top 85%' } });
