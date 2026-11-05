@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=14");
-@import url("./base.css?v=14");
+@import url("./tokens.css?v=16");
+@import url("./base.css?v=16");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -165,7 +165,7 @@ section { position: relative; }
 
 /* ---------- geography ---------- */
 .geo { padding-block: var(--space-3xl); overflow: clip; isolation: isolate; }
-.geo__map { position: absolute; inset: 0 -4% 0 -8%; z-index: -1; will-change: transform; }
+.geo__map { position: absolute; inset: 0 -4% 0 -8%; z-index: -1; }
 .geo__map video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .geo__map::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-paper) 6%, var(--color-shade-mid) 34%, var(--color-shade-soft) 52%, var(--color-shade-soft) 68%, var(--color-shade-mid) 82%, var(--color-paper) 100%), linear-gradient(180deg, var(--color-paper) 0%, var(--color-shade-0) 18%, var(--color-shade-0) 82%, var(--color-paper) 100%); }
 .geo__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: var(--space-xl); align-items: center; min-height: 440px; }
@@ -236,7 +236,7 @@ section { position: relative; }
 .reviews__track { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .reviews__track::-webkit-scrollbar { display: none; }
 .review { scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1fr) 240px; align-items: end; }
-.review__card { position: relative; z-index: 1; display: grid; gap: var(--space-md); margin-right: calc(-1 * var(--space-2xl)); margin-bottom: var(--space-xl); padding: var(--space-xl); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-card); background: var(--color-glass); }
+.review__card { position: relative; z-index: 2; display: grid; gap: var(--space-md); margin-right: calc(-1 * var(--space-2xl)); margin-bottom: var(--space-xl); padding: var(--space-xl); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-card); background: var(--color-glass); }
 .review__company { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-lg); font-weight: 800; letter-spacing: -0.02em; }
 .review__company::before { content: ""; width: 10px; height: 10px; border-radius: var(--radius-pill); background: var(--color-accent); }
 .review__quote { margin: 0; font-size: var(--text-lg); line-height: 1.5; color: var(--color-ink); }

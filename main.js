@@ -236,7 +236,7 @@
   const counters = document.querySelectorAll('[data-count]');
   counters.forEach((c) => { c.textContent = fmt(0, +c.dataset.dec || 0); });
   gsap.timeline({ defaults: { ease } })
-    .from(heroImg, { scale: 1.25, xPercent: 8, opacity: 0, duration: 2.4 }, 0)
+    .from(heroImg, { scale: 1.08, xPercent: 4, opacity: 0, duration: 2.4 }, 0)
     .from('.line__in', { yPercent: 115, rotate: 4, duration: 1.4, stagger: 0.13 }, 0.15)
     .to('[data-rise]', { opacity: 1, y: 0, duration: 1, stagger: 0.08 }, 0.7)
     .add(() => counters.forEach((c) => {
@@ -247,7 +247,8 @@
   /* stats: icons pop in with the counters */
   gsap.from('.stat__icon', { scale: 0.4, rotate: -25, opacity: 0, duration: 0.9, ease: 'back.out(2.2)', stagger: 0.12, delay: 1.05, clearProps: 'transform,opacity' });
 
-  gsap.to(heroImg, { yPercent: 14, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  // translate only: scaling a playing video every scroll frame makes it shimmer
+  gsap.to(heroImg, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
   gsap.to('.hero__inner', { yPercent: -20, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: true } });
 
   /* road: the truck drives the curve and lights it behind itself */
@@ -292,7 +293,6 @@
     gsap.from(types.querySelectorAll('.types__labels li'), { opacity: 0, y: 12, duration: 0.8, ease, stagger: 0.08, scrollTrigger: { trigger: types, start: 'top 75%' } });
   }
 
-  gsap.fromTo('.geo__map', { scale: 1.1 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.geo', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from('[data-geo-list] li', { x: 60, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-geo-list]', start: 'top 85%' } });
 
   /* advantages */

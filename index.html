@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=16">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -76,7 +76,7 @@
   <!-- Hero -->
   <section class="hero" id="top">
     <figure class="hero__media" aria-hidden="true">
-      <video autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.webp" width="1920" height="1080" data-hero-img><source src="assets/video/hero-540.mp4" type="video/mp4" media="(max-width: 960px)"><source src="assets/video/hero-1080.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.webp" width="1920" height="1080" data-hero-img><source src="assets/video/hero-720.mp4" type="video/mp4" media="(max-width: 1000px)"><source src="assets/video/hero-1080.mp4" type="video/mp4"></video>
     </figure>
     <div class="container hero__inner">
       <div class="hero__copy">
@@ -168,7 +168,7 @@
   <!-- Geography -->
   <section class="geo" id="geo">
     <div class="geo__map" aria-hidden="true">
-      <video muted loop playsinline preload="none" poster="assets/img/geo-poster.webp" width="1920" height="1080" data-geo-video><source src="assets/video/geo-540.mp4" type="video/mp4" media="(max-width: 960px)"><source src="assets/video/geo-1080.mp4" type="video/mp4"></video>
+      <video muted loop playsinline preload="none" poster="assets/img/geo-poster.webp" width="1920" height="1080" data-geo-video><source src="assets/video/geo-720.mp4" type="video/mp4" media="(max-width: 1000px)"><source src="assets/video/geo-1080.mp4" type="video/mp4"></video>
     </div>
     <div class="container geo__inner">
       <div class="geo__copy">
@@ -264,30 +264,31 @@
         <a class="btn btn--outline btn--sm" href="https://t.me/bsmtrade" data-reveal>Оставить отзыв <svg class="icon" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
       </div>
       <div class="reviews__slider">
+        <!-- DEMO: отзывы и имена — примеры для превью, заменить на реальные до публикации -->
         <ul class="reviews__track" data-reviews aria-label="Отзывы клиентов">
           <li class="review" aria-roledescription="слайд" aria-label="Отзыв 1 из 3">
             <article class="review__card">
-              <p class="review__company">[Компания]</p>
-              <blockquote class="review__quote">«[Текст отзыва клиента: 2–3 предложения о том, что везли, откуда и как прошла доставка.]»</blockquote>
-              <footer class="review__author"><strong>[Имя Фамилия]</strong><span>[Должность, компания]</span></footer>
+              <p class="review__company">Производство стройматериалов</p>
+              <blockquote class="review__quote">«Возим оборудование и комплектующие из Китая уже не первый год. BSM сами собирают груз у нескольких поставщиков, консолидируют и закрывают таможню: нам остаётся только принять машину на складе. На каждом этапе понятно, где груз.»</blockquote>
+              <footer class="review__author"><strong>Азиз Каримов</strong><span>Руководитель отдела закупок</span></footer>
             </article>
-            <div class="review__photo" data-slot="review-1" aria-hidden="true"><span>ИФ</span></div>
+            <div class="review__photo" data-slot="review-1"><img src="assets/img/china-internal-logistics.webp" alt="Сборный груз из Китая на складе консолидации" width="480" height="640" loading="lazy"></div>
           </li>
           <li class="review" aria-roledescription="слайд" aria-label="Отзыв 2 из 3">
             <article class="review__card">
-              <p class="review__company">[Компания]</p>
-              <blockquote class="review__quote">«[Текст отзыва клиента: 2–3 предложения о том, что везли, откуда и как прошла доставка.]»</blockquote>
-              <footer class="review__author"><strong>[Имя Фамилия]</strong><span>[Должность, компания]</span></footer>
+              <p class="review__company">Дистрибуция бытовой техники</p>
+              <blockquote class="review__quote">«Перевели на BSM поставки из Турции, когда упёрлись в сроки у прежнего перевозчика. Менеджер на связи в любое время, документы готовят заранее, и машины перестали стоять на границе.»</blockquote>
+              <footer class="review__author"><strong>Дилноза Рахимова</strong><span>Начальник отдела логистики</span></footer>
             </article>
-            <div class="review__photo" data-slot="review-2" aria-hidden="true"><span>ИФ</span></div>
+            <div class="review__photo" data-slot="review-2"><img src="assets/img/fura.webp" alt="Фура BSM Logistics в рейсе" width="480" height="640" loading="lazy"></div>
           </li>
           <li class="review" aria-roledescription="слайд" aria-label="Отзыв 3 из 3">
             <article class="review__card">
-              <p class="review__company">[Компания]</p>
-              <blockquote class="review__quote">«[Текст отзыва клиента: 2–3 предложения о том, что везли, откуда и как прошла доставка.]»</blockquote>
-              <footer class="review__author"><strong>[Имя Фамилия]</strong><span>[Должность, компания]</span></footer>
+              <p class="review__company">Мебельное производство</p>
+              <blockquote class="review__quote">«Нужно было срочно привезти станок из Европы и растаможить его без простоя цеха. Ребята просчитали маршрут, взяли на себя сертификаты и брокерские вопросы и доставили до двери. Будем работать дальше.»</blockquote>
+              <footer class="review__author"><strong>Шерзод Юлдашев</strong><span>Директор</span></footer>
             </article>
-            <div class="review__photo" data-slot="review-3" aria-hidden="true"><span>ИФ</span></div>
+            <div class="review__photo" data-slot="review-3"><img src="assets/img/customs-brokerage.webp" alt="Таможенное оформление груза" width="480" height="640" loading="lazy"></div>
           </li>
         </ul>
         <div class="reviews__nav">
@@ -357,6 +358,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=14" defer></script>
+<script src="main.js?v=16" defer></script>
 </body>
 </html>
