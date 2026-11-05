@@ -3,11 +3,17 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=4");
-@import url("./base.css?v=4");
+@import url("./tokens.css?v=5");
+@import url("./base.css?v=5");
 
 /* ---------- base ---------- */
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
+/* Lenis owns smooth scrolling; native smoothing on top of it makes every frame stutter */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+.is-off .geo__pulse, .is-off .scroll-cue .icon { animation-play-state: paused; }
 body { background: var(--color-paper); }
 .icon { width: 1.25em; height: 1.25em; flex: none; }
 .skip { position: absolute; left: var(--space-md); top: var(--space-md); z-index: var(--z-modal); padding: var(--space-sm) var(--space-md); background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-sm); transform: translateY(-200%); }

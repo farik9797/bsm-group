@@ -56,13 +56,17 @@
     if (!drawer.hidden) { setDrawer(false); burger.focus(); }
   });
 
-  let lastY = 0;
+  // only touch the DOM when the nav state actually changes
+  let lastY = 0, solid = null, hidden = null;
   const onScroll = () => {
     const y = window.scrollY;
-    nav.classList.toggle('is-solid', y > 40 || !drawer.hidden);
-    const hide = y > 500 && y > lastY && drawer.hidden;
-    nav.classList.toggle('is-hidden', hide);
-    if (hide) closeDd();
+    const s = y > 40 || !drawer.hidden;
+    let h = hidden;
+    if (!drawer.hidden || y <= 500) h = false;
+    else if (y > lastY + 2) h = true;
+    else if (y < lastY - 2) h = false;
+    if (s !== solid) { nav.classList.toggle('is-solid', s); solid = s; }
+    if (h !== hidden) { nav.classList.toggle('is-hidden', h); hidden = h; if (h) closeDd(); }
     lastY = y;
   };
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -258,6 +262,10 @@
       b.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
     });
   }
+
+  /* endless loops (map pulse, scroll cue) pause while their section is off screen */
+  const loopIo = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
+  document.querySelectorAll('.hero, .geo').forEach((s) => loopIo.observe(s));
 
   window.addEventListener('load', () => ScrollTrigger.refresh());
 })();
