@@ -12,9 +12,8 @@
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
   }
-  const NAV_H = 76;
   const scrollToEl = (el) => {
-    if (lenis) lenis.scrollTo(el, { offset: -NAV_H });
+    if (lenis) lenis.scrollTo(el, { offset: -nav.offsetHeight });
     else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
   };
 
@@ -24,6 +23,8 @@
   const drawer = document.getElementById('drawer');
   const setDrawer = (open) => {
     drawer.hidden = !open;
+    root.classList.toggle('is-locked', open);
+    if (lenis) open ? lenis.stop() : lenis.start();
     nav.classList.toggle('is-solid', open || window.scrollY > 40);
     burger.setAttribute('aria-expanded', String(open));
     burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
@@ -207,13 +208,14 @@
   const dialog = document.querySelector('[data-modal-dialog]');
   if (dialog && dialog.showModal) {
     let opener = null;
+    const panel = dialog.querySelector('.modal__panel');
     const close = () => {
       if (!dialog.open || dialog.classList.contains('is-closing')) return;
       if (reduce) { dialog.close(); return; }
       dialog.classList.add('is-closing');
       setTimeout(() => { dialog.classList.remove('is-closing'); dialog.close(); }, 220); // matches the CSS exit
     };
-    dialog.addEventListener('close', () => { root.classList.remove('is-locked'); if (lenis) lenis.start(); if (opener) opener.focus(); });
+    dialog.addEventListener('close', () => { panel.style.transform = ''; root.classList.remove('is-locked'); if (lenis) lenis.start(); if (opener) opener.focus(); });
     dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
     dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); });
     dialog.querySelectorAll('[data-modal-close]').forEach((b) => b.addEventListener('click', close));
@@ -226,9 +228,37 @@
       root.classList.add('is-locked');
       if (lenis) lenis.stop();
       dialog.showModal();
-      dialog.querySelector(svc ? '#m-from' : '.chip-opt input').focus();
+      const picked = dialog.querySelector('input[name="service"]:checked');
+      if (picked) picked.parentElement.scrollIntoView({ block: 'nearest', inline: 'center' });
+      // on touch the sheet opens calm: a focused field would throw the keyboard over it
+      if (matchMedia('(hover: hover)').matches) dialog.querySelector(svc ? '#m-from' : '.chip-opt input').focus();
     }));
+
+    // the sheet follows a drag on its grabber and leaves past 96px
+    const grab = dialog.querySelector('[data-modal-grab]');
+    let dragY = null;
+    grab.addEventListener('pointerdown', (e) => { dragY = e.clientY; grab.setPointerCapture(e.pointerId); panel.classList.add('is-dragging'); });
+    grab.addEventListener('pointermove', (e) => { if (dragY !== null) panel.style.transform = `translateY(${Math.max(0, e.clientY - dragY)}px)`; });
+    const drop = (e) => {
+      if (dragY === null) return;
+      const far = e.clientY - dragY > 96;
+      dragY = null;
+      panel.classList.remove('is-dragging');
+      if (far) close(); else panel.style.transform = '';
+    };
+    grab.addEventListener('pointerup', drop);
+    grab.addEventListener('pointercancel', drop);
   }
+
+  /* ---------- dock: steps aside while the hero action or the form is on screen ---------- */
+  const dock = document.querySelector('[data-dock]');
+  const dockSeen = new Set();
+  dock.classList.add('is-away');
+  const dockIo = new IntersectionObserver((es) => {
+    es.forEach((e) => (e.isIntersecting ? dockSeen.add(e.target) : dockSeen.delete(e.target)));
+    dock.classList.toggle('is-away', dockSeen.size > 0);
+  });
+  document.querySelectorAll('.hero__actions, .cta .form').forEach((el) => dockIo.observe(el));
 
   const geoVideo = document.querySelector('[data-geo-video]');
   if (geoVideo && !reduce) new IntersectionObserver(([e]) => { if (e.isIntersecting) geoVideo.play().catch(() => {}); else geoVideo.pause(); }, { rootMargin: '200px 0px' }).observe(geoVideo);
@@ -322,6 +352,7 @@
   /* steps: each one lands, the connector draws to the next */
   const stl = gsap.timeline({ scrollTrigger: { trigger: '[data-steps]', start: 'top 80%' } });
   document.querySelectorAll('[data-steps] > li').forEach((li) => {
+    if (!li.offsetParent) return; // connectors are hidden on phones
     if (li.classList.contains('step__arrow')) stl.from(li.querySelector('span'), { scaleX: 0, duration: 0.5, ease: 'power2.out' }).from(li.querySelector('svg'), { x: -10, opacity: 0, duration: 0.3 }, '<0.3');
     else stl.from(li, { y: 30, opacity: 0, duration: 0.6, ease });
   });
