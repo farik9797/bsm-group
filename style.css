@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=20");
-@import url("./base.css?v=20");
+@import url("./tokens.css?v=21");
+@import url("./base.css?v=21");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -399,8 +399,8 @@ html.is-locked { overflow: hidden; }
   .form { grid-template-columns: minmax(0, 1fr); }
   /* iOS sheet: rises from the bottom, grabber on top, its own scroll inside */
   .modal { padding: 0; background: var(--color-scrim); overflow: hidden; }
-  .modal[open] { place-items: end center; }
-  .modal__panel { width: min(100%, 40rem); max-height: calc(100dvh - max(env(safe-area-inset-top), var(--space-sm)) - var(--space-sm)); overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--space-md) calc(var(--space-md) + env(safe-area-inset-bottom)); border: 0; border-radius: 24px 24px 0 0; box-shadow: none; transition: transform var(--dur-long) var(--ease-sheet); }
+  .modal[open] { grid-template-rows: minmax(0, 1fr); place-items: end center; }
+  .modal__panel { width: min(100%, 40rem); max-height: calc(100% - max(env(safe-area-inset-top), var(--space-sm))); overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--space-md) calc(var(--space-md) + env(safe-area-inset-bottom)); border: 0; border-radius: 24px 24px 0 0; box-shadow: none; transition: transform var(--dur-long) var(--ease-sheet); }
   .modal__panel.is-dragging { transition: none; }
   .modal[open] .modal__panel { animation: sheet-up var(--dur-long) var(--ease-sheet); }
   .modal.is-closing .modal__panel { animation: sheet-down 220ms var(--ease-in) forwards; }
@@ -417,12 +417,15 @@ html.is-locked { overflow: hidden; }
   .chip-opt { flex: none; }
   .chip-opt span { min-height: 44px; border-color: transparent; background: var(--color-fill); }
   .form--modal .form__row:nth-of-type(2) { grid-template-columns: minmax(0, 1fr); }
-  .form textarea { min-height: 76px; }
-  .form--modal .form__end { grid-template-columns: minmax(0, 1fr); }
+  .form textarea { height: 76px; min-height: 56px; }
+  /* the action stays reachable while the sheet scrolls */
+  .form--modal .form__end { position: sticky; bottom: 0; z-index: 1; grid-template-columns: minmax(0, 1fr); margin-top: 0; padding-block: var(--space-xs); background: var(--color-surface); }
   .form .btn { width: 100%; }
   .form__end { justify-items: stretch; }
   .form__status { max-width: none; }
-  .modal__alt { margin-top: var(--space-sm); padding-top: var(--space-xs); gap: 0 var(--space-lg); }
+  .modal.is-kb .form--modal .form__end { position: static; }
+  .modal__alt { margin-top: var(--space-xs); padding-top: var(--space-2xs); gap: 0 var(--space-md); }
+  @media (max-height: 50rem) { .modal__lead { display: none; } }
   /* floating glass capsule, like an iOS tab bar; it leaves when the same action is already on screen */
   .dock { display: grid; grid-template-columns: 52px 52px minmax(0, 1fr); gap: var(--space-2xs); position: fixed; left: 0; right: 0; bottom: max(var(--space-sm), env(safe-area-inset-bottom)); z-index: var(--z-sticky); width: min(100% - 24px, 30rem); margin-inline: auto; padding: var(--space-2xs); border: var(--rule-hair) solid var(--color-fill); border-radius: var(--radius-pill); background: var(--color-shade); box-shadow: var(--shadow-bar); transition: transform var(--dur-long) var(--ease-sheet), opacity var(--dur-short) var(--ease-out), visibility 0s; }
   .dock.is-away { transform: translateY(calc(100% + 24px)); opacity: 0; visibility: hidden; transition-delay: 0s, 0s, var(--dur-long); }

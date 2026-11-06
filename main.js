@@ -209,13 +209,24 @@
   if (dialog && dialog.showModal) {
     let opener = null;
     const panel = dialog.querySelector('.modal__panel');
+    // the keyboard shrinks only the visual viewport: keep the sheet above it, the active field in view
+    const vv = window.visualViewport;
+    const fitDialog = () => {
+      if (!vv || !dialog.open) return;
+      dialog.style.top = `${vv.offsetTop}px`;
+      dialog.style.height = `${vv.height}px`;
+      dialog.classList.toggle('is-kb', vv.height < window.innerHeight * 0.8);
+      const field = document.activeElement;
+      if (field && field.matches('.modal input:not([type="radio"]), .modal textarea')) field.scrollIntoView({ block: 'nearest' });
+    };
+    if (vv) { vv.addEventListener('resize', fitDialog); vv.addEventListener('scroll', fitDialog); }
     const close = () => {
       if (!dialog.open || dialog.classList.contains('is-closing')) return;
       if (reduce) { dialog.close(); return; }
       dialog.classList.add('is-closing');
       setTimeout(() => { dialog.classList.remove('is-closing'); dialog.close(); }, 220); // matches the CSS exit
     };
-    dialog.addEventListener('close', () => { panel.style.transform = ''; root.classList.remove('is-locked'); if (lenis) lenis.start(); if (opener) opener.focus(); });
+    dialog.addEventListener('close', () => { panel.style.transform = ''; dialog.style.top = ''; dialog.style.height = ''; dialog.classList.remove('is-kb'); root.classList.remove('is-locked'); if (lenis) lenis.start(); if (opener) opener.focus(); });
     dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
     dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); });
     dialog.querySelectorAll('[data-modal-close]').forEach((b) => b.addEventListener('click', close));
@@ -228,8 +239,11 @@
       root.classList.add('is-locked');
       if (lenis) lenis.stop();
       dialog.showModal();
+      fitDialog();
+      // scroll only the chip row: scrollIntoView would also move the sheet mid-animation
       const picked = dialog.querySelector('input[name="service"]:checked');
-      if (picked) picked.parentElement.scrollIntoView({ block: 'nearest', inline: 'center' });
+      const chips = dialog.querySelector('.chips-opt');
+      chips.scrollLeft = picked ? picked.parentElement.offsetLeft - (chips.clientWidth - picked.parentElement.offsetWidth) / 2 : 0;
       // on touch the sheet opens calm: a focused field would throw the keyboard over it
       if (matchMedia('(hover: hover)').matches) dialog.querySelector(svc ? '#m-from' : '.chip-opt input').focus();
     }));

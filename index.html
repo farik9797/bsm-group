@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=21">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -59,7 +59,7 @@
       </button>
     </div>
   </div>
-  <div class="drawer" id="drawer" hidden>
+  <div class="drawer" id="drawer" data-lenis-prevent hidden>
     <nav class="container drawer__links" aria-label="Мобильное меню">
       <a href="#services">Услуги</a>
       <a href="#why">О компании</a>
@@ -356,7 +356,7 @@
   </div>
 </footer>
 
-<dialog class="modal" id="lead" aria-labelledby="lead-title" data-modal-dialog>
+<dialog class="modal" id="lead" aria-labelledby="lead-title" data-modal-dialog data-lenis-prevent>
   <div class="modal__panel">
     <span class="modal__grab" data-modal-grab aria-hidden="true"></span>
     <button type="button" class="round modal__close" data-modal-close aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
@@ -395,6 +395,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=20" defer></script>
+<script src="main.js?v=21" defer></script>
 </body>
 </html>
