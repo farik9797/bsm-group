@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=21");
-@import url("./base.css?v=21");
+@import url("./tokens.css?v=22");
+@import url("./base.css?v=22");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -302,6 +302,7 @@ section { position: relative; }
 .modal { position: fixed; inset: 0; z-index: var(--z-modal); width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: var(--space-md); border: 0; background: var(--color-shade-mid); color: var(--color-ink); overflow-y: auto; overscroll-behavior: contain; }
 .modal[open] { display: grid; place-items: center; animation: modal-fade 280ms var(--ease-out); }
 .modal::backdrop { background: transparent; }
+.modal__panel:focus { outline: none; }
 .modal__panel { position: relative; width: min(100%, 640px); padding: var(--space-2xl) var(--space-xl) var(--space-xl); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-card); background: var(--color-surface); box-shadow: 0 40px 120px -40px var(--color-glow-purple); }
 .modal[open] .modal__panel { animation: modal-rise 420ms var(--ease-out); }
 .modal.is-closing { animation: modal-fade-out 220ms var(--ease-in) forwards; }
@@ -315,10 +316,11 @@ section { position: relative; }
 .modal__lead { margin-top: var(--space-xs); color: var(--color-muted); font-size: var(--text-sm); }
 .form--modal { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); margin-top: var(--space-lg); }
 .form__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-sm); }
-.chips-opt { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: 0 0 var(--space-xs); padding: 0; border: 0; }
+.chips-opt { min-inline-size: 0; margin: 0 0 var(--space-xs); padding: 0; border: 0; }
+.chips-opt__row { position: relative; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
 .chips-opt legend { margin-bottom: var(--space-xs); font-size: var(--text-sm); color: var(--color-muted); }
 .chip-opt { position: relative; cursor: pointer; }
-.chip-opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.form .chip-opt input { position: absolute; opacity: 0; inset: 0; min-height: 0; margin: 0; padding: 0; cursor: pointer; }
 .chip-opt span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--space-md); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); font-size: var(--text-sm); transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out); }
 .chip-opt:hover span { border-color: var(--color-muted); }
 .chip-opt input:checked + span { border-color: var(--color-accent); background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; }
@@ -398,7 +400,8 @@ html.is-locked { overflow: hidden; }
   .cta__earth { width: 100%; opacity: 0.4; }
   .form { grid-template-columns: minmax(0, 1fr); }
   /* iOS sheet: rises from the bottom, grabber on top, its own scroll inside */
-  .modal { padding: 0; background: var(--color-scrim); overflow: hidden; }
+  /* clip, not hidden: a hidden box still scrolls to a focused element while the sheet is below the screen */
+  .modal { padding: 0; background: var(--color-scrim); overflow: hidden; overflow: clip; }
   .modal[open] { grid-template-rows: minmax(0, 1fr); place-items: end center; }
   .modal__panel { width: min(100%, 40rem); max-height: calc(100% - max(env(safe-area-inset-top), var(--space-sm))); overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--space-md) calc(var(--space-md) + env(safe-area-inset-bottom)); border: 0; border-radius: 24px 24px 0 0; box-shadow: none; transition: transform var(--dur-long) var(--ease-sheet); }
   .modal__panel.is-dragging { transition: none; }
@@ -411,9 +414,9 @@ html.is-locked { overflow: hidden; }
   .modal__close { top: var(--space-sm); right: var(--space-sm); z-index: 1; border: 0; background: var(--color-fill); }
   .modal__title { font-size: 1.375rem; letter-spacing: -0.02em; padding-right: 56px; }
   .form--modal { margin-top: var(--space-md); }
-  .chips-opt { flex-wrap: nowrap; min-inline-size: 0; margin-inline: calc(-1 * var(--space-md)); padding-inline: var(--space-md); overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
-  .chips-opt::-webkit-scrollbar { display: none; }
-  .chips-opt legend { padding: 0; }
+  .chips-opt__row { flex-wrap: nowrap; margin-inline: calc(-1 * var(--space-md)); padding-inline: var(--space-md); overflow: auto hidden; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .chips-opt__row::-webkit-scrollbar { display: none; }
+  .modal__alt-label { display: none; }
   .chip-opt { flex: none; }
   .chip-opt span { min-height: 44px; border-color: transparent; background: var(--color-fill); }
   .form--modal .form__row:nth-of-type(2) { grid-template-columns: minmax(0, 1fr); }
@@ -535,6 +538,8 @@ html.is-locked { overflow: hidden; }
   .btn--lime:hover { background: var(--color-accent); box-shadow: none; }
   [data-more]:hover { background: var(--color-tint); }
   .btn:hover .icon { transform: none; }
+  .form input:hover, .form textarea:hover { border-color: transparent; }
+  .chip-opt:hover span { border-color: transparent; }
   .round:hover { border-color: var(--color-rule-strong); background: var(--color-surface); color: var(--color-ink); }
   .btn, .card, .proj, .round, .dock a, .chip-opt span, .segment a { transition: scale var(--dur-micro) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
   .btn:active, .card:active, .proj:active, .round:active, .dock a:active, .chip-opt:active span, .segment a:active { transform: none; scale: 0.97; }

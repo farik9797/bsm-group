@@ -242,7 +242,7 @@
       fitDialog();
       // scroll only the chip row: scrollIntoView would also move the sheet mid-animation
       const picked = dialog.querySelector('input[name="service"]:checked');
-      const chips = dialog.querySelector('.chips-opt');
+      const chips = dialog.querySelector('.chips-opt__row');
       chips.scrollLeft = picked ? picked.parentElement.offsetLeft - (chips.clientWidth - picked.parentElement.offsetWidth) / 2 : 0;
       // on touch the sheet opens calm: a focused field would throw the keyboard over it
       if (matchMedia('(hover: hover)').matches) dialog.querySelector(svc ? '#m-from' : '.chip-opt input').focus();

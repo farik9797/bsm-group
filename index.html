@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=21">
+  <link rel="stylesheet" href="style.css?v=22">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -357,7 +357,7 @@
 </footer>
 
 <dialog class="modal" id="lead" aria-labelledby="lead-title" data-modal-dialog data-lenis-prevent>
-  <div class="modal__panel">
+  <div class="modal__panel" tabindex="-1" autofocus>
     <span class="modal__grab" data-modal-grab aria-hidden="true"></span>
     <button type="button" class="round modal__close" data-modal-close aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
     <h2 class="modal__title" id="lead-title">Рассчитать перевозку</h2>
@@ -365,7 +365,7 @@
     <form class="form form--modal" data-form data-endpoint="" novalidate>
       <fieldset class="chips-opt">
         <legend>Услуга</legend>
-        <label class="chip-opt"><input type="radio" name="service" value="Автоперевозки"><span>Автоперевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Морские перевозки"><span>Морские перевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Авиаперевозки"><span>Авиаперевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Ж/д перевозки"><span>Ж/д перевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Таможенное оформление"><span>Таможенное оформление</span></label><label class="chip-opt"><input type="radio" name="service" value="Складские услуги"><span>Складские услуги</span></label><label class="chip-opt"><input type="radio" name="service" value="Логистический консалтинг"><span>Логистический консалтинг</span></label>
+        <div class="chips-opt__row"><label class="chip-opt"><input type="radio" name="service" value="Автоперевозки"><span>Автоперевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Морские перевозки"><span>Морские перевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Авиаперевозки"><span>Авиаперевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Ж/д перевозки"><span>Ж/д перевозки</span></label><label class="chip-opt"><input type="radio" name="service" value="Таможенное оформление"><span>Таможенное оформление</span></label><label class="chip-opt"><input type="radio" name="service" value="Складские услуги"><span>Складские услуги</span></label><label class="chip-opt"><input type="radio" name="service" value="Логистический консалтинг"><span>Логистический консалтинг</span></label></div>
       </fieldset>
       <div class="form__row">
         <div class="fl"><input id="m-from" name="from" type="text" placeholder=" " autocomplete="off"><label for="m-from">Откуда</label></div>
@@ -381,7 +381,7 @@
         <p class="form__status" id="m-status" role="status" data-status></p>
       </div>
     </form>
-    <p class="modal__alt">Или сразу: <a href="tel:+998555200202"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>+998 55 520 02 02</a><a href="https://t.me/bsmtrade"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a></p>
+    <p class="modal__alt"><span class="modal__alt-label">Или сразу:</span> <a href="tel:+998555200202"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>+998 55 520 02 02</a><a href="https://t.me/bsmtrade"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a></p>
   </div>
 </dialog>
 
@@ -395,6 +395,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=21" defer></script>
+<script src="main.js?v=22" defer></script>
 </body>
 </html>
