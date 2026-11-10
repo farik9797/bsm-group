@@ -23,6 +23,7 @@ UZ = {
     'Вопросы': 'Savollar', 'Новости': 'Yangiliklar', 'Контакты': 'Kontaktlar', 'Рассчитать перевозку': 'Narxni hisoblash',
     'Открыть меню': 'Menyuni ochish', 'Мобильное меню': 'Mobil menyu', 'Язык': 'Til', 'Разделы': 'Bo‘limlar', 'Закрыть': 'Yopish',
     'Быстрая связь': 'Tezkor aloqa', 'Позвонить': 'Qo‘ng‘iroq qilish',
+    'Тёмная тема': 'Tungi rejim',
     # services
     'Автоперевозки': 'Avtotashuvlar', 'Ж/д перевозки': 'Temir yo‘l tashuvlari', 'Авиаперевозки': 'Aviatashuvlar',
     'Логистика по Китаю': 'Xitoy ichki logistikasi', 'Мультимодальные перевозки': 'Multimodal tashuvlar', 'Контейнерные перевозки': 'Konteyner tashuvlari',

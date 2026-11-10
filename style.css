@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=33");
-@import url("./base.css?v=33");
+@import url("./tokens.css?v=34");
+@import url("./base.css?v=34");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -74,6 +74,12 @@ section { position: relative; }
 .dd__menu a:hover, .dd__menu a[aria-current] { background: var(--color-surface-2); color: var(--color-accent); }
 .nav__end { display: flex; align-items: center; gap: var(--space-md); }
 .lang__btn { min-height: 44px; padding: 0 var(--space-sm); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); font-size: var(--text-xs); font-weight: 600; }
+.theme-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); background: transparent; color: var(--color-ink); cursor: pointer; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+.theme-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.theme-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.theme-btn .icon { width: 20px; height: 20px; }
+.theme-btn__sun, :root[data-theme="dark"] .theme-btn__moon { display: none; }
+:root[data-theme="dark"] .theme-btn__sun { display: block; }
 .nav__burger { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); background: transparent; color: inherit; cursor: pointer; }
 .nav__burger:hover { border-color: var(--color-accent); }
 .drawer { background: var(--color-paper); border-top: var(--rule-hair) solid var(--color-rule); }
@@ -178,6 +184,8 @@ section { position: relative; }
 .geo__item--main strong { font-size: var(--text-lg); color: var(--color-accent); }
 .geo-map { position: relative; margin-top: var(--space-xl); }
 .geo-map__dots, .geo-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.geo-map__dots--dark, :root[data-theme="dark"] .geo-map__dots--light { display: none; }
+:root[data-theme="dark"] .geo-map__dots--dark { display: block; }
 .geo-map__svg { overflow: visible; }
 .geo-r { fill: none; stroke: var(--color-dim); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .geo-r--cn { stroke: var(--color-accent); stroke-width: 2.5; }
@@ -252,6 +260,7 @@ section { position: relative; }
 .clients-row__list { align-items: center; }
 .clients-row__list img { display: block; width: auto; height: 32px; filter: brightness(0); opacity: 0.55; transition: opacity var(--dur-short) var(--ease-out); }
 .clients-row__list li:hover img { opacity: 1; }
+:root[data-theme="dark"] .clients-row__list img { filter: none; }
 .clients-row__word span { color: var(--color-ink); opacity: 0.55; transition: opacity var(--dur-short) var(--ease-out); }
 .clients-row__word:hover span { opacity: 1; }
 
@@ -526,6 +535,8 @@ html.is-locked { overflow: hidden; }
   .nav { padding-top: env(safe-area-inset-top); }
   .nav.is-solid { background: var(--color-bar-solid); }
   .nav__burger { margin-right: calc(-1 * var(--space-xs)); border: 0; }
+  .theme-btn { border: 0; }
+  .nav__end { gap: 0; }
   .container { padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right)); }
   @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .nav.is-solid, .dock { background: var(--color-bar); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }

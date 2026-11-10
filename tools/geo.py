@@ -31,6 +31,7 @@ DROP = AFRICA | {'Greenland', 'Iceland', 'Papua New Guinea', 'Australia', 'Timor
 TINT = {'China': 'china', 'Uzbekistan': 'home', 'Turkey': 'lane', 'Iran': 'lane', 'Malaysia': 'lane',
         'Kazakhstan': 'lane', 'Kyrgyzstan': 'lane'}
 COLOURS = {'land': (214, 214, 222), 'lane': (184, 184, 196), 'china': (179, 135, 246), 'home': (24, 24, 30)}
+COLOURS_DARK = {'land': (52, 52, 64), 'lane': (86, 86, 104), 'china': (142, 67, 241), 'home': (173, 247, 40)}
 
 
 def proj(lon, lat):
@@ -69,17 +70,18 @@ for g in topo['objects']['countries']['geometries']:
             pts = [tuple(v * SCALE for v in proj(lon, lat)) for lon, lat in ring(r)]
             d.polygon(pts, fill=0 if k else 255)
 
-img = Image.new('RGBA', (W * SCALE, H * SCALE), (0, 0, 0, 0))
-dd = ImageDraw.Draw(img)
 r = 2.3 * SCALE
-for y in range(STEP // 2, H, STEP):
-    for x in range(STEP // 2, W, STEP):
-        px, py = x * SCALE, y * SCALE
-        for kind in ('home', 'china', 'lane', 'land'):
-            if masks[kind].getpixel((px, py)):
-                dd.ellipse((px - r, py - r, px + r, py + r), fill=COLOURS[kind])
-                break
-img.save(root / 'assets/img/geo-dots.webp', 'WEBP', quality=86, method=6)
+for name, palette in (('geo-dots', COLOURS), ('geo-dots-dark', COLOURS_DARK)):
+    img = Image.new('RGBA', (W * SCALE, H * SCALE), (0, 0, 0, 0))
+    dd = ImageDraw.Draw(img)
+    for y in range(STEP // 2, H, STEP):
+        for x in range(STEP // 2, W, STEP):
+            px, py = x * SCALE, y * SCALE
+            for kind in ('home', 'china', 'lane', 'land'):
+                if masks[kind].getpixel((px, py)):
+                    dd.ellipse((px - r, py - r, px + r, py + r), fill=palette[kind])
+                    break
+    img.save(root / f'assets/img/{name}.webp', 'WEBP', quality=86, method=6)
 
 # ---------- routes and labels ----------
 P = {  # name: (lon, lat, label key, label side)
@@ -125,7 +127,8 @@ svg.append(f'<circle class="geo-hub__ring" cx="{x:.1f}" cy="{y:.1f}" r="16"/><ci
 svg.append('</svg>')
 labels = ''.join(f'<li class="{cls}" style="--x:{XY[k][0] / W * 100:.2f}%;--y:{XY[k][1] / H * 100:.2f}%">{t}</li>' for k, t, cls in LABELS)
 block = (f'<!--GEO--><div class="geo-map" style="aspect-ratio:{W}/{H}" data-geo-map>'
-         f'<img class="geo-map__dots" src="assets/img/geo-dots.webp" alt="" width="{W * SCALE}" height="{H * SCALE}" loading="lazy">'
+         f'<img class="geo-map__dots geo-map__dots--light" src="assets/img/geo-dots.webp" alt="" width="{W * SCALE}" height="{H * SCALE}" loading="lazy">'
+         f'<img class="geo-map__dots geo-map__dots--dark" src="assets/img/geo-dots-dark.webp" alt="" width="{W * SCALE}" height="{H * SCALE}" loading="lazy">'
          + ''.join(svg) + f'<ul class="geo-map__labels" aria-hidden="true">{labels}</ul></div><!--/GEO-->')
 
 html = (root / 'src/page.ru.html').read_text()

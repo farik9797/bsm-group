@@ -26,6 +26,23 @@
     else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
   };
 
+  /* ---------- theme: the head script already set it; the button flips and remembers it ---------- */
+  const themeBtn = document.querySelector('[data-theme-toggle]');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const setTheme = (t, save) => {
+    root.dataset.theme = t;
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', String(t === 'dark'));
+    if (save) { try { localStorage.setItem('bsm-theme', t); } catch { /* private mode: the choice lasts this page */ } }
+  };
+  setTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+  if (themeBtn) themeBtn.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true));
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let saved = null;
+    try { saved = localStorage.getItem('bsm-theme'); } catch { /* no storage: follow the system */ }
+    if (!saved) setTheme(e.matches ? 'dark' : 'light');
+  });
+  if (themeMeta) themeMeta.content = '#07070A';
+
   /* ---------- nav ---------- */
   const nav = document.querySelector('[data-nav]');
   const burger = nav.querySelector('.nav__burger');

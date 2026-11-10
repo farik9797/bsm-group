@@ -29,8 +29,8 @@
   --shadow-card: 0 24px 48px -28px rgb(17 17 22 / 0.35);
   --tracking-display: -0.035em; --display-weight: 800;
 }
-/* dark islands: the hero over the video, the form, the footer, and the bar while it floats over the hero */
-.theme-dark, .nav:not(.is-solid) {
+/* dark: the whole page when the visitor picks it, and in both themes the islands (hero, form, footer, the bar over the hero) */
+:root[data-theme="dark"], .theme-dark, .nav:not(.is-solid) {
   color-scheme: dark;
   --color-paper: #07070A; --color-paper-2: #0D0D12; --color-paper-3: #FFFFFF;
   --color-surface: #121218; --color-surface-2: #1A1A22; --color-glass: rgb(16 16 22 / 0.86);
@@ -40,4 +40,9 @@
   --color-focus: #ADF728;
   --color-bar: rgb(22 22 30 / 0.72); --color-bar-solid: rgb(7 7 10 / 0.95); --color-fill: rgb(255 255 255 / 0.08); --color-fill-strong: rgb(255 255 255 / 0.16);
   --color-tint: rgb(173 247 40 / 0.14); --shadow-bar: 0 12px 32px -12px rgb(0 0 0 / 0.7);
+}
+/* dark page only: the route drawing and the overlays that sit on paper */
+:root[data-theme="dark"] {
+  --color-scrim: rgb(0 0 0 / 0.6); --shadow-card: 0 30px 60px -30px rgb(0 0 0 / 0.8);
+  --rt-ink: #C4C4CE; --rt-cloud: #2C2C36; --rt-dash: #3E3E4A; --rt-hole: #07070A;
 }
