@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=34");
-@import url("./base.css?v=34");
+@import url("./tokens.css?v=35");
+@import url("./base.css?v=35");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -256,13 +256,16 @@ section { position: relative; }
 .clients { padding-block: var(--space-2xl); border-top: var(--rule-hair) solid var(--color-rule); }
 .clients-row { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.2fr); gap: var(--space-lg) var(--space-2xl); align-items: center; }
 .clients-row__title { font-size: var(--text-2xl); }
-.clients-row__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-xl); font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.03em; color: var(--color-muted); }
-.clients-row__list { align-items: center; }
-.clients-row__list img { display: block; width: auto; height: 32px; filter: brightness(0); opacity: 0.55; transition: opacity var(--dur-short) var(--ease-out); }
-.clients-row__list li:hover img { opacity: 1; }
-:root[data-theme="dark"] .clients-row__list img { filter: none; }
-.clients-row__word span { color: var(--color-ink); opacity: 0.55; transition: opacity var(--dur-short) var(--ease-out); }
-.clients-row__word:hover span { opacity: 1; }
+.clients-row__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-lg) var(--space-md); align-items: center; justify-items: center; }
+/* partner marks: quiet grey until hovered on light; on dark they turn light so black lettering stays readable */
+.clients-row__list img { display: block; max-width: 100%; height: auto; filter: grayscale(1); opacity: 0.7; transition: opacity var(--dur-short) var(--ease-out), filter var(--dur-short) var(--ease-out); }
+.clients-row__list li:hover img { filter: none; opacity: 1; }
+:root[data-theme="dark"] .clients-row__list img, :root[data-theme="dark"] .clients-row__list li:hover img { filter: grayscale(1) invert(1) brightness(1.15); }
+:root[data-theme="dark"] .clients-row__list li:hover img { opacity: 1; }
+/* a pale mark (Mittivoy's sky blue) is darkened on light and left uninverted on dark */
+.clients-row__list img.is-light { filter: grayscale(1) brightness(0.5); }
+.clients-row__list li:hover img.is-light { filter: none; }
+:root[data-theme="dark"] .clients-row__list img.is-light, :root[data-theme="dark"] .clients-row__list li:hover img.is-light { filter: grayscale(1) brightness(1.35); }
 
 /* ---------- inner pages ---------- */
 .page-head { padding-block: calc(var(--nav-h) + var(--space-2xl)) var(--space-2xl); overflow: clip; }
@@ -611,7 +614,7 @@ html.is-locked { overflow: hidden; }
   .proj span { font-size: var(--text-sm); }
 
   .clients-row { gap: var(--space-md); }
-  .clients-row__list img { height: 26px; width: auto; }
+  .clients-row__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg) var(--space-sm); }
 
   /* phones: zoom the map onto Tashkent and China; Europe and Turkey stay in the list above */
   .geo-map { width: 165%; margin-left: -58%; }
