@@ -113,9 +113,9 @@ markup = markup.replace(f'xmlns="{NS}" ', '').replace(' xmlns="http://www.w3.org
 markup = re.sub(r'\s+', ' ', markup)
 (root_dir / 'assets/svg/route-dark.svg').write_text(markup.replace('<svg ', f'<svg xmlns="{NS}" ', 1))
 
-html = (root_dir / 'index.html').read_text()
+html = (root_dir / 'src/page.ru.html').read_text()
 block = '<!--ROUTE-->' + markup + '<!--/ROUTE-->'
 html, n = re.subn(r'<!--ROUTE-->.*?<!--/ROUTE-->', lambda m: block, html, flags=re.S)
 assert n == 1, 'index.html has no <!--ROUTE--> marker'
-(root_dir / 'index.html').write_text(html)
+(root_dir / 'src/page.ru.html').write_text(html)
 print('route ok', len(markup) // 1024, 'KB inline')

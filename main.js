@@ -2,6 +2,15 @@
   const root = document.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasGsap = window.gsap && window.ScrollTrigger;
+  // interface strings follow <html lang>: the page is built in Uzbek (root) and Russian (/ru/)
+  const T = {
+    ru: { menuOpen: 'Открыть меню', menuClose: 'Закрыть меню', more: 'Все услуги ', less: 'Свернуть ', invalid: 'Укажите имя и телефон в формате +998 XX XXX XX XX.',
+      offline: 'Отправка подключается на этапе сборки сайта. Пока позвоните: +998\u00a055\u00a0520\u00a002\u00a002.', sending: 'Отправка… ',
+      sent: 'Заявка отправлена. Менеджер свяжется с вами.', failed: 'Не удалось отправить. Позвоните: +998\u00a055\u00a0520\u00a002\u00a002.' },
+    uz: { menuOpen: 'Menyuni ochish', menuClose: 'Menyuni yopish', more: 'Barcha xizmatlar ', less: 'Yig‘ish ', invalid: 'Ism va telefonni +998 XX XXX XX XX formatida kiriting.',
+      offline: 'Ariza yuborish sayt ishga tushganda ulanadi. Hozircha qo‘ng‘iroq qiling: +998\u00a055\u00a0520\u00a002\u00a002.', sending: 'Yuborilmoqda… ',
+      sent: 'Ariza yuborildi. Menejer siz bilan bog‘lanadi.', failed: 'Yuborib bo‘lmadi. Qo‘ng‘iroq qiling: +998\u00a055\u00a0520\u00a002\u00a002.' },
+  }[root.lang] || {};
   if (!hasGsap || reduce) root.classList.add('no-motion');
 
   /* ---------- smooth scroll ---------- */
@@ -27,7 +36,7 @@
     if (lenis) open ? lenis.stop() : lenis.start();
     nav.classList.toggle('is-solid', open || window.scrollY > 40);
     burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    burger.setAttribute('aria-label', open ? T.menuClose : T.menuOpen);
     burger.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
   };
   burger.addEventListener('click', () => setDrawer(drawer.hidden));
@@ -103,7 +112,7 @@
     const open = more.hidden;
     more.hidden = !open;
     moreBtn.setAttribute('aria-expanded', String(open));
-    moreBtn.firstChild.textContent = open ? 'Свернуть ' : 'Все услуги ';
+    moreBtn.firstChild.textContent = open ? T.less : T.more;
     if (open && hasGsap && !reduce) {
       gsap.fromTo(more.querySelectorAll('.card'), { clipPath: 'inset(100% 0 0 0 round 20px)' }, { clipPath: 'inset(0% 0 0 0 round 20px)', duration: 1, ease: 'expo.out', stagger: 0.08 });
     }
@@ -123,36 +132,6 @@
   next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }));
   track.addEventListener('scroll', syncNav, { passive: true });
   syncNav();
-
-  /* ---------- reviews slider: arrows, dots, swipe ---------- */
-  const rvTrack = document.querySelector('[data-reviews]');
-  if (rvTrack) {
-    const slides = [...rvTrack.children];
-    const dotsBox = document.querySelector('[data-rv-dots]');
-    const rvPrev = document.querySelector('[data-rv-prev]');
-    const rvNext = document.querySelector('[data-rv-next]');
-    const go = (i) => rvTrack.scrollTo({ left: i * rvTrack.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
-    const dots = slides.map((_, i) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', `Отзыв ${i + 1}`);
-      b.addEventListener('click', () => go(i));
-      dotsBox.appendChild(b);
-      return b;
-    });
-    const current = () => Math.round(rvTrack.scrollLeft / rvTrack.clientWidth);
-    const sync = () => {
-      const i = current();
-      dots.forEach((d, k) => d.setAttribute('aria-selected', String(k === i)));
-      rvPrev.disabled = i === 0;
-      rvNext.disabled = i === slides.length - 1;
-    };
-    rvPrev.addEventListener('click', () => go(Math.max(0, current() - 1)));
-    rvNext.addEventListener('click', () => go(Math.min(slides.length - 1, current() + 1)));
-    rvTrack.addEventListener('scroll', sync, { passive: true });
-    sync();
-  }
 
   /* ---------- forms (section + popup) ---------- */
   // +998 XX XXX XX XX as the user types
@@ -180,26 +159,26 @@
       });
       status.classList.remove('is-ok');
       status.classList.toggle('is-error', !ok);
-      if (!ok) { status.textContent = 'Укажите имя и телефон в формате +998 XX XXX XX XX.'; form.querySelector('[aria-invalid="true"]').focus(); return; }
+      if (!ok) { status.textContent = T.invalid; form.querySelector('[aria-invalid="true"]').focus(); return; }
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
-        status.textContent = 'Отправка подключается на этапе сборки сайта. Пока позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
+        status.textContent = T.offline;
         return;
       }
       const btn = form.querySelector('[type="submit"]');
       const label = btn.firstChild.textContent;
       btn.disabled = true;
       btn.setAttribute('aria-busy', 'true');
-      btn.firstChild.textContent = 'Отправка… ';
+      btn.firstChild.textContent = T.sending;
       try {
         const res = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
         if (!res.ok) throw new Error(res.status);
         status.classList.add('is-ok');
-        status.textContent = 'Заявка отправлена. Менеджер свяжется с вами.';
+        status.textContent = T.sent;
         form.reset();
       } catch {
         status.classList.add('is-error');
-        status.textContent = 'Не удалось отправить. Позвоните: +998\u00a055\u00a0520\u00a002\u00a002.';
+        status.textContent = T.failed;
       } finally { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.firstChild.textContent = label; }
     });
   });
@@ -357,7 +336,32 @@
     gsap.from(types.querySelectorAll('.types__labels li'), { opacity: 0, y: 12, duration: 0.8, ease, stagger: 0.08, scrollTrigger: { trigger: types, start: 'top 75%' } });
   }
 
-  gsap.from('[data-geo-list] li', { x: 60, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-geo-list]', start: 'top 85%' } });
+  gsap.from('[data-geo-list] li', { y: 20, opacity: 0, duration: 0.8, ease, stagger: 0.06, scrollTrigger: { trigger: '[data-geo-list]', start: 'top 85%' } });
+
+  /* geography: the Chinese lanes draw first, then the rest; cargo pulses keep riding China to Tashkent */
+  const geoMap = document.querySelector('[data-geo-map]');
+  if (geoMap && window.MotionPathPlugin) {
+    const svg = geoMap.querySelector('svg');
+    const lanes = geoMap.querySelectorAll('.geo-r');
+    gsap.set(lanes, { strokeDasharray: 1, strokeDashoffset: 1 });
+    const pulses = gsap.timeline({ paused: true, repeat: -1 });
+    geoMap.querySelectorAll('.geo-r--cn').forEach((lane, i) => {
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('r', '5'); dot.setAttribute('class', 'geo-pulse');
+      svg.insertBefore(dot, svg.querySelector('.geo-p'));
+      pulses.fromTo(dot, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none', motionPath: { path: lane, align: lane, alignOrigin: [0.5, 0.5], start: 0, end: 0.1 } }, i * 0.35)
+        .to(dot, { duration: 2.2, ease: 'none', motionPath: { path: lane, align: lane, alignOrigin: [0.5, 0.5], start: 0.1, end: 1 } }, i * 0.35 + 0.3)
+        .to(dot, { opacity: 0, duration: 0.2 }, i * 0.35 + 2.3);
+    });
+    gsap.timeline({ scrollTrigger: { trigger: geoMap, start: 'top 75%', once: true }, defaults: { ease: 'power2.inOut' } })
+      .to(geoMap.querySelectorAll('.geo-r--cn:not(.geo-r--last)'), { strokeDashoffset: 0, duration: 1.1, stagger: 0.12 })
+      .to(geoMap.querySelectorAll('.geo-r--last'), { strokeDashoffset: 0, duration: 0.9, stagger: 0.12 }, '-=0.3')
+      .to(geoMap.querySelectorAll('.geo-r:not(.geo-r--cn)'), { strokeDashoffset: 0, duration: 1, stagger: 0.08 }, '-=0.5')
+      // opacity only: a GSAP move would rewrite the labels' CSS translate offsets
+      .from(geoMap.querySelectorAll('.geo-l'), { opacity: 0, duration: 0.5, stagger: 0.04, ease: 'none' }, 0.3)
+      .add(() => pulses.play());
+    ScrollTrigger.create({ trigger: geoMap, start: 'top bottom', end: 'bottom top', onToggle: (st) => (st.isActive && pulses.progress() > 0 ? pulses.resume() : pulses.pause()) });
+  }
 
   /* advantages */
   gsap.from('[data-feats] .feat', { y: 50, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-feats]', start: 'top 85%' } });
@@ -367,15 +371,14 @@
   const stl = gsap.timeline({ scrollTrigger: { trigger: '[data-steps]', start: 'top 80%' } });
   document.querySelectorAll('[data-steps] > li').forEach((li) => {
     if (!li.offsetParent) return; // connectors are hidden on phones
-    if (li.classList.contains('step__arrow')) stl.from(li.querySelector('span'), { scaleX: 0, duration: 0.5, ease: 'power2.out' }).from(li.querySelector('svg'), { x: -10, opacity: 0, duration: 0.3 }, '<0.3');
-    else stl.from(li, { y: 30, opacity: 0, duration: 0.6, ease });
+    if (li.classList.contains('step__arrow')) stl.from(li.querySelector('span'), { scaleX: 0, duration: 0.35, ease: 'power2.out' }, '-=0.25').from(li.querySelector('svg'), { x: -10, opacity: 0, duration: 0.25 }, '<0.2');
+    else stl.from(li, { y: 30, opacity: 0, duration: 0.5, ease }, '-=0.2');
   });
 
-  /* reviews: the card slides over the portrait */
-  gsap.from('.reviews__slider', { x: 80, opacity: 0, duration: 1.2, ease, scrollTrigger: { trigger: '.reviews', start: 'top 75%' } });
   gsap.from('.clients-row__list li', { y: 20, opacity: 0, duration: 0.8, ease, stagger: 0.06, scrollTrigger: { trigger: '.clients-row', start: 'top 90%' } });
+  gsap.from('.faq__item', { y: 24, opacity: 0, duration: 0.8, ease, stagger: 0.06, scrollTrigger: { trigger: '.faq__list', start: 'top 85%' } });
 
-  /* projects slide in from the right */
+  /* warehouses slide in from the right */
   gsap.from('[data-carousel] li', { x: 120, opacity: 0, duration: 1.2, ease, stagger: 0.08, scrollTrigger: { trigger: '[data-carousel]', start: 'top 85%' } });
 
   /* parallax in framed photos */

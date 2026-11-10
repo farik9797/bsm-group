@@ -1,5 +1,5 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
   --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
   --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
@@ -9,17 +9,35 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  /* brand constants: lime is a fill for the main actions; on white it is never text */
+  --color-lime: #ADF728; --color-lime-hover: #C2FF55; --color-lime-ink: #050505; --color-accent-2: #8E43F1;
+  --color-on-photo: #FFFFFF; --color-shine: rgb(255 255 255 / 0.55);
+  --color-shade: rgb(7 7 10 / 0.92); --color-shade-0: rgb(7 7 10 / 0); --color-shade-mid: rgb(7 7 10 / 0.6); --color-shade-soft: rgb(7 7 10 / 0.35);
+  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22);
+  /* light base: the client asked for a brighter page; dark stays only where the video and the form sit */
+  --color-paper: #FFFFFF; --color-paper-2: #F5F5F8; --color-paper-3: #FFFFFF;
+  --color-surface: #FFFFFF; --color-surface-2: #F0F0F5; --color-glass: rgb(255 255 255 / 0.9);
+  --color-ink: #111116; --color-muted: #5C5C68; --color-dim: #9A9AA6;
+  --color-rule: #E6E6EC; --color-rule-strong: #D3D3DB;
+  --color-accent: #7A35E0; --color-accent-hover: #6A27CF; --color-accent-ink: #FFFFFF;
+  --color-focus: #7A35E0;
+  --color-bar: rgb(255 255 255 / 0.72); --color-bar-solid: rgb(255 255 255 / 0.96); --color-fill: rgb(17 17 22 / 0.05); --color-fill-strong: rgb(17 17 22 / 0.12);
+  --color-tint: rgb(122 53 224 / 0.1); --color-scrim: rgb(10 10 14 / 0.42); --shadow-bar: 0 12px 32px -12px rgb(17 17 22 / 0.28);
+  --rt-ink: #2E2E38; --rt-cloud: #E8E8EF; --rt-dash: #CDCDD6; --rt-wave: #8E43F1; --rt-hole: #FFFFFF; --rt-box-a: #ADF728; --rt-box-b: #4F7D0C;
+  --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-body);
+  --radius-card: 20px; --radius-sm: 12px; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
+  --shadow-card: 0 24px 48px -28px rgb(17 17 22 / 0.35);
+  --tracking-display: -0.035em; --display-weight: 800;
+}
+/* dark islands: the hero over the video, the form, the footer, and the bar while it floats over the hero */
+.theme-dark, .nav:not(.is-solid) {
+  color-scheme: dark;
   --color-paper: #07070A; --color-paper-2: #0D0D12; --color-paper-3: #FFFFFF;
   --color-surface: #121218; --color-surface-2: #1A1A22; --color-glass: rgb(16 16 22 / 0.86);
   --color-ink: #F4F4F6; --color-muted: #A3A3AE; --color-dim: #74747F;
   --color-rule: #272730; --color-rule-strong: #3A3A45;
-  --color-accent: #ADF728; --color-accent-hover: #C2FF55; --color-accent-ink: #050505; --color-shine: rgb(255 255 255 / 0.55); --color-accent-2: #8E43F1;
-  --color-glow-lime: rgb(173 247 40 / 0.35); --color-glow-purple: rgb(142 67 241 / 0.45); --color-glow-soft: rgb(142 67 241 / 0.22); --color-shade: rgb(7 7 10 / 0.95); --color-shade-0: rgb(7 7 10 / 0); --color-shade-mid: rgb(7 7 10 / 0.6); --color-shade-soft: rgb(7 7 10 / 0.35);
+  --color-accent: #ADF728; --color-accent-hover: #C2FF55; --color-accent-ink: #050505;
   --color-focus: #ADF728;
-  --color-bar: rgb(22 22 30 / 0.72); --color-fill: rgb(255 255 255 / 0.08); --color-fill-strong: rgb(255 255 255 / 0.16); --color-tint: rgb(173 247 40 / 0.14); --color-scrim: rgb(0 0 0 / 0.55); --shadow-bar: 0 12px 32px -12px rgb(0 0 0 / 0.7);
-  --rt-ink: #C4C4CE; --rt-cloud: #2C2C36; --rt-dash: #3E3E4A; --rt-wave: #8E43F1; --rt-hole: #07070A; --rt-box-a: #ADF728; --rt-box-b: #4F7D0C;
-  --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-body);
-  --radius-card: 20px; --radius-sm: 12px; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
-  --shadow-card: 0 30px 60px -30px rgb(0 0 0 / 0.8);
-  --tracking-display: -0.035em; --display-weight: 800;
+  --color-bar: rgb(22 22 30 / 0.72); --color-bar-solid: rgb(7 7 10 / 0.95); --color-fill: rgb(255 255 255 / 0.08); --color-fill-strong: rgb(255 255 255 / 0.16);
+  --color-tint: rgb(173 247 40 / 0.14); --shadow-bar: 0 12px 32px -12px rgb(0 0 0 / 0.7);
 }
