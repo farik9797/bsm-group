@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=35");
-@import url("./base.css?v=35");
+@import url("./tokens.css?v=36");
+@import url("./base.css?v=36");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -102,7 +102,7 @@ section { position: relative; }
 .line--grad { background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 55%, var(--color-accent) 85%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .line--lime { color: var(--color-accent); }
 .char { display: inline-block; }
-.hero__lead { font-size: var(--text-lg); line-height: 1.45; color: var(--color-ink); opacity: 0.88; }
+.hero__lead { max-inline-size: 32rem; font-size: var(--text-lg); line-height: 1.45; color: var(--color-ink); opacity: 0.88; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); }
 .chip { display: inline-flex; align-items: center; gap: var(--space-sm); padding: var(--space-md) var(--space-lg); border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-card); background: var(--color-glass); font-size: var(--text-sm); font-weight: 500; line-height: 1.35; }
 .chip .icon { width: 30px; height: 30px; color: var(--color-accent); }
