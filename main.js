@@ -108,7 +108,7 @@
   /* ---------- all services ---------- */
   const moreBtn = document.querySelector('[data-more]');
   const more = document.getElementById('cards-more');
-  moreBtn.addEventListener('click', () => {
+  if (moreBtn) moreBtn.addEventListener('click', () => {
     const open = more.hidden;
     more.hidden = !open;
     moreBtn.setAttribute('aria-expanded', String(open));
@@ -119,19 +119,21 @@
     if (window.ScrollTrigger) ScrollTrigger.refresh();
   });
 
-  /* ---------- projects carousel ---------- */
+  /* ---------- warehouses carousel ---------- */
   const track = document.querySelector('[data-carousel]');
-  const prev = document.querySelector('[data-prev]');
-  const next = document.querySelector('[data-next]');
-  const step = () => track.querySelector('li').getBoundingClientRect().width + 16;
-  const syncNav = () => {
-    prev.disabled = track.scrollLeft < 4;
-    next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
-  };
-  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }));
-  next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }));
-  track.addEventListener('scroll', syncNav, { passive: true });
-  syncNav();
+  if (track) {
+    const prev = document.querySelector('[data-prev]');
+    const next = document.querySelector('[data-next]');
+    const step = () => track.querySelector('li').getBoundingClientRect().width + 16;
+    const syncNav = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }));
+    track.addEventListener('scroll', syncNav, { passive: true });
+    syncNav();
+  }
 
   /* ---------- forms (section + popup) ---------- */
   // +998 XX XXX XX XX as the user types
@@ -251,15 +253,14 @@
     es.forEach((e) => (e.isIntersecting ? dockSeen.add(e.target) : dockSeen.delete(e.target)));
     dock.classList.toggle('is-away', dockSeen.size > 0);
   });
-  document.querySelectorAll('.hero__actions, .cta .form').forEach((el) => dockIo.observe(el));
+  document.querySelectorAll('.hero__actions, .page-head__actions, .cta .form').forEach((el) => dockIo.observe(el));
 
-  const geoVideo = document.querySelector('[data-geo-video]');
-  if (geoVideo && !reduce) new IntersectionObserver(([e]) => { if (e.isIntersecting) geoVideo.play().catch(() => {}); else geoVideo.pause(); }, { rootMargin: '200px 0px' }).observe(geoVideo);
   if (reduce) { const v = document.querySelector('.hero video'); if (v) { v.removeAttribute('autoplay'); v.pause(); } }
   if (!hasGsap || reduce) return;
 
   /* ================= motion ================= */
   gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false }); // one script serves the home page and the inner pages
   if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
   const ease = 'expo.out';
   const fmt = (v, dec) => dec ? v.toFixed(dec) : Math.round(v).toLocaleString('ru-RU').replace(/ /g, ' ');
@@ -291,13 +292,13 @@
   gsap.from('.stat__icon', { scale: 0.4, rotate: -25, opacity: 0, duration: 0.9, ease: 'back.out(2.2)', stagger: 0.12, delay: 1.05, clearProps: 'transform,opacity' });
 
   // translate only: scaling a playing video every scroll frame makes it shimmer
-  gsap.to(heroImg, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero__inner', { yPercent: -20, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: true } });
+  if (heroImg) gsap.to(heroImg, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  if (heroImg) gsap.to('.hero__inner', { yPercent: -20, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: true } });
 
   /* road: the truck drives the curve and lights it behind itself */
   const truck = document.querySelector('[data-road-truck]');
   const lit = document.querySelector('[data-road]');
-  if (window.MotionPathPlugin) {
+  if (truck && lit && window.MotionPathPlugin) {
     const roadTl = gsap.timeline({ scrollTrigger: { trigger: '.road', start: 'top 85%', end: 'bottom 15%', scrub: 0.8, invalidateOnRefresh: true } });
     roadTl.set(truck, { opacity: 1 })
       .to(truck, { ease: 'none', motionPath: { path: lit, align: lit, alignOrigin: [0.5, 0.5] } }, 0)
@@ -365,10 +366,10 @@
 
   /* advantages */
   gsap.from('[data-feats] .feat', { y: 50, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-feats]', start: 'top 85%' } });
-  gsap.from('.why__photo', { clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)', duration: 1.6, ease, scrollTrigger: { trigger: '.why', start: 'top 75%' } });
+  if (document.querySelector('.why__photo')) gsap.from('.why__photo', { clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)', duration: 1.6, ease, scrollTrigger: { trigger: '.why', start: 'top 75%' } });
 
   /* steps: each one lands, the connector draws to the next */
-  const stl = gsap.timeline({ scrollTrigger: { trigger: '[data-steps]', start: 'top 80%' } });
+  const stl = document.querySelector('[data-steps]') && gsap.timeline({ scrollTrigger: { trigger: '[data-steps]', start: 'top 80%' } });
   document.querySelectorAll('[data-steps] > li').forEach((li) => {
     if (!li.offsetParent) return; // connectors are hidden on phones
     if (li.classList.contains('step__arrow')) stl.from(li.querySelector('span'), { scaleX: 0, duration: 0.35, ease: 'power2.out' }, '-=0.25').from(li.querySelector('svg'), { x: -10, opacity: 0, duration: 0.25 }, '<0.2');

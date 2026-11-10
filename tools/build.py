@@ -119,36 +119,72 @@ UZ_RAW = {
 KEEP = {'Русский'}   # a language's own name stays in its own script
 
 
-def lang_links(html, here, base):
-    html = html.replace('{UZ}', base + ('' if base else './')).replace('{RU}', base + 'ru/')
-    return re.sub(rf'(data-lang="{here}")', r'\1 aria-current="true"', html)
+BASE = 'https://farik9797.github.io/bsm-group/'
 
 
-def build_uz(src):
-    out = src
+def translate(html, strict):
+    out = html
     for ru, uz in UZ_RAW.items():
-        assert ru in out, f'raw not found: {ru}'
-        out = out.replace(ru, uz)
+        if ru in out:
+            out = out.replace(ru, uz)
+        else:
+            assert not strict, f'raw not found: {ru}'
     for ru in sorted(UZ, key=len, reverse=True):
         pat = re.compile(r'(?<=>)(\s*)' + re.escape(ru) + r'(\s*)(?=<)|(?<=")' + re.escape(ru) + r'(?=")')
         out, n = pat.subn(lambda m: (m.group(1) or '') + UZ[ru] + (m.group(2) or '') if m.group(1) is not None else UZ[ru], out)
-        assert n, f'not found: {ru}'
+        assert n or not strict, f'not found: {ru}'
     check = re.sub(r'<!--.*?-->', '', out, flags=re.S)
     for k in KEEP:
         check = check.replace(k, '')
     left = sorted(set(re.findall(r'[^<>"]*[А-Яа-яЁё][^<>"]*', check)))
     assert not left, 'Cyrillic left in UZ: ' + ' | '.join(s.strip() for s in left[:12])
-    return lang_links(out, 'uz', '')
+    return out
 
 
-def build_ru(src):
-    out = src
+def localize(html, lang, path):
+    """path: the page inside its language root, '' for home, 'services/auto/' and so on."""
+    depth = path.count('/')
+    L = '../' * depth                                    # to this language's home
+    R = '../' * (depth + (1 if lang == 'ru' else 0))     # to the site root, where assets live
     for attr in ('src', 'href', 'poster'):
-        out = re.sub(rf'{attr}="(assets/|style\.css|main\.js)', rf'{attr}="../\1', out)
-    return lang_links(out, 'ru', '../')
+        html = re.sub(rf'{attr}="(assets/|style\.css|main\.js)', rf'{attr}="{R}\1', html)
+    html = html.replace('{UZ}', (R + path) or './').replace('{RU}', R + 'ru/' + path)
+    html = re.sub(r'(data-lang="' + lang + '")', r'\1 aria-current="true"', html)
+    html = html.replace('{L}', L)
+    html = re.sub(r'<link rel="alternate" hreflang="uz" href="[^"]*">', f'<link rel="alternate" hreflang="uz" href="{BASE}{path}">', html)
+    html = re.sub(r'<link rel="alternate" hreflang="ru" href="[^"]*">', f'<link rel="alternate" hreflang="ru" href="{BASE}ru/{path}"><link rel="canonical" href="{BASE}{"ru/" if lang == "ru" else ""}{path}">', html)
+    return html
 
 
-(root / 'index.html').write_text(build_uz(SRC))
-(root / 'ru').mkdir(exist_ok=True)
-(root / 'ru/index.html').write_text(build_ru(SRC))
-print('built: index.html (uz), ru/index.html (ru)')
+def write(lang, path, html):
+    out = root / ('ru/' if lang == 'ru' else '') / path / 'index.html'
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html)
+
+
+import sys
+sys.path.insert(0, str(root / 'tools'))
+import pages
+
+pre, rest = SRC.split('<!--MAIN-->', 1)
+_, post = rest.split('<!--/MAIN-->', 1)
+clients = re.search(r'  <!-- Clients -->.*?</section>\n', SRC, re.S).group(0)
+inner_pre = re.sub(r'\s*<script type="application/ld\+json">.*?</script>', '', pre, flags=re.S)
+inner_pre = re.sub(r'\s*<link rel="preload" as="image"[^>]*>', '', inner_pre)
+
+count = 0
+for lang in ('uz', 'ru'):
+    home = translate(SRC, True) if lang == 'uz' else SRC
+    write(lang, '', localize(home, lang, ''))
+    count += 1
+    for path, (title, desc), body in pages.all_pages(lang, clients):
+        head = re.sub(r'<title>.*?</title>', lambda m: f'<title>{title}</title>', inner_pre, flags=re.S)
+        head = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{desc}">', head)
+        top = '/'.join(path.split('/')[:1]) + '/'
+        head = head.replace(f'href="{{L}}{top}">', f'href="{{L}}{top}" aria-current="page">')
+        html = head + '<!--MAIN-->\n' + body + '<!--/MAIN-->' + post
+        if lang == 'uz':
+            html = translate(html, False)
+        write(lang, path, localize(html, lang, path))
+        count += 1
+print('built', count, 'pages')
