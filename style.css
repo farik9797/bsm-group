@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=32");
-@import url("./base.css?v=32");
+@import url("./tokens.css?v=33");
+@import url("./base.css?v=33");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -273,7 +273,7 @@ section { position: relative; }
 .stats--page dd { font-size: var(--text-xl); white-space: nowrap; }
 .nav__links > a[aria-current], .drawer__links a[aria-current] { color: var(--color-accent); opacity: 1; }
 .facts { padding-block: var(--space-xl) 0; }
-.facts__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin: 0; }
+.facts__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin-block: 0; }
 .fact { display: grid; align-content: start; gap: var(--space-xs); padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-paper-2); }
 .fact dt { font-size: var(--text-sm); color: var(--color-muted); }
 .fact dd { margin: 0; font-size: var(--text-lg); font-weight: 600; line-height: 1.35; }
