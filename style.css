@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=31");
-@import url("./base.css?v=31");
+@import url("./tokens.css?v=32");
+@import url("./base.css?v=32");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -63,7 +63,7 @@ section { position: relative; }
 .nav__links > a, .dd__btn { display: inline-flex; align-items: center; min-height: 44px; }
 .nav__links > a, .dd__btn, .drawer__links a { text-decoration: none; font-size: var(--text-sm); font-weight: 500; color: var(--color-ink); opacity: 0.85; transition: color var(--dur-micro) var(--ease-out), opacity var(--dur-micro) var(--ease-out); }
 .nav__links > a:hover, .nav__links > a.is-active, .dd__btn:hover { color: var(--color-accent); opacity: 1; }
-.dd { position: relative; }
+.dd, .lang { position: relative; }
 .dd__btn { display: inline-flex; align-items: center; gap: var(--space-2xs); padding: 0; border: 0; background: none; cursor: pointer; }
 .dd__btn .icon { width: 14px; height: 14px; transition: transform var(--dur-short) var(--ease-out); }
 .dd__btn[aria-expanded="true"] .icon { transform: rotate(180deg); }
