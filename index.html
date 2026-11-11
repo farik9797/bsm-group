@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=36">
+  <link rel="stylesheet" href="style.css?v=37">
   <script>(function(){var d=document.documentElement,t=null;d.classList.add('js');try{t=localStorage.getItem('bsm-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.dataset.theme=t})();</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Yetkazib berish narxi qancha?", "acceptedAnswer": {"@type": "Answer", "text": "Narx yukingiz parametrlari, qayerdan va qayerga olib kelinishi hamda transport turiga qarab hisoblanadi. Ariza qoldiring, menejer hisob-kitobni yuboradi."}}, {"@type": "Question", "name": "Qaysi davlatlardan yuk olib kelasizlar?", "acceptedAnswer": {"@type": "Answer", "text": "Xitoy, Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyo davlatlaridan. Qozog‘iston va Qirg‘iziston orqali tranzit ishlaymiz."}}, {"@type": "Question", "name": "Yuk Xitoydan necha kunda yetib keladi?", "acceptedAnswer": {"@type": "Answer", "text": "Avto orqali 15–25 kunda, avia orqali 6–9 kunda, temir yo‘l orqali 30–35 kunda."}}, {"@type": "Question", "name": "Yuk uchun kafolat bormi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha. Tashish jarayonida yukka biz tomondan zarar yetsa, qoplab beramiz. Fors-major holatlar bundan mustasno."}}, {"@type": "Question", "name": "Yukni onlayn kuzatish mumkinmi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha, mijozlarimiz uchun maxsus Telegram-bot bor. Unda yuk qaysi bosqichda ekanini uydan turib ko‘rishingiz mumkin."}}, {"@type": "Question", "name": "Bojxona rasmiylashtiruvida yordam berasizlarmi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha, bizda tajribali deklarantlar jamoasi bor. TIF TN kodlarini tanlaydi, bojxona to‘lovlarini oldindan hisoblaydi va yukni qonun doirasida rasmiylashtiradi."}}]}</script>
 </head>
@@ -185,13 +185,13 @@
   </section>
 
   <!-- Geography: China first -->
-  <section class="geo" id="geo">
+  <section class="geo" id="geo" data-geo="net">
     <div class="container">
       <div class="geo__inner">
         <div class="geo__copy">
           <p class="eyebrow" data-reveal>Geografiya</p>
-          <h2 data-reveal>Asosiy yo‘nalish: Xitoy</h2>
-          <p class="lead" data-reveal>Xitoyning istalgan provinsiyasidan yukni Yiwu, Guanchjou va Lianyungangdagi omborlarda yig‘amiz va Xorgos hamda Ulug‘chat orqali Toshkentga olib kelamiz.</p>
+          <h2 data-reveal>Yuklarni qayerdan olib kelamiz</h2>
+          <p class="lead" data-reveal>Asosiy yo‘nalish — Xitoy. Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyodan ham olib kelamiz, tranzit Qozog‘iston va Qirg‘iziston orqali.</p>
         </div>
         <ul class="geo__list" data-geo-list>
           <li class="geo__item geo__item--main"><strong>Xitoy</strong><span>Avto, temir yo‘l, avia, 5 ta ombor</span></li>
@@ -202,8 +202,29 @@
           <li class="geo__item"><strong>Qozog‘iston, Qirg‘iziston</strong></li>
         </ul>
       </div>
-      <!--GEO--><div class="geo-map" style="aspect-ratio:1000/621" data-geo-map><img class="geo-map__dots geo-map__dots--light" src="assets/img/geo-dots.webp" alt="" width="3000" height="1863" loading="lazy"><img class="geo-map__dots geo-map__dots--dark" src="assets/img/geo-dots-dark.webp" alt="" width="3000" height="1863" loading="lazy"><svg class="geo-map__svg" viewBox="0 0 1000 621" aria-hidden="true" focusable="false"><path class="geo-r geo-r--cn" d="M942.9 298.4 Q778.5 276.1 657.6 162.5" pathLength="1"/><path class="geo-r geo-r--cn" d="M936.8 250.2 Q784.9 245.4 657.6 162.5" pathLength="1"/><path class="geo-r geo-r--cn" d="M894.0 354.9 Q778.4 240.9 620.5 203.4" pathLength="1"/><path class="geo-r geo-r--cn geo-r--last" d="M657.6 162.5 Q623.2 193.4 577.3 189.0" pathLength="1"/><path class="geo-r geo-r--cn geo-r--last" d="M620.5 203.4 Q602.1 186.7 577.3 189.0" pathLength="1"/><path class="geo-r" d="M141.6 108.6 Q373.9 70.3 577.3 189.0" pathLength="1"/><path class="geo-r" d="M287.6 191.6 Q432.1 149.8 577.3 189.0" pathLength="1"/><path class="geo-r" d="M448.8 240.2 Q521.3 235.1 577.3 189.0" pathLength="1"/><path class="geo-r" d="M810.7 537.4 Q749.7 325.8 577.3 189.0" pathLength="1"/><circle class="geo-p geo-p--cn" cx="942.9" cy="298.4" r="6"/><circle class="geo-p geo-p--cn" cx="894.0" cy="354.9" r="6"/><circle class="geo-p geo-p--cn" cx="936.8" cy="250.2" r="6"/><circle class="geo-p geo-p--cn" cx="657.6" cy="162.5" r="6"/><circle class="geo-p geo-p--cn" cx="620.5" cy="203.4" r="6"/><circle class="geo-p" cx="287.6" cy="191.6" r="4.5"/><circle class="geo-p" cx="141.6" cy="108.6" r="4.5"/><circle class="geo-p" cx="448.8" cy="240.2" r="4.5"/><circle class="geo-p" cx="810.7" cy="537.4" r="4.5"/><circle class="geo-hub__ring" cx="577.3" cy="189.0" r="16"/><circle class="geo-hub" cx="577.3" cy="189.0" r="9"/></svg><ul class="geo-map__labels" aria-hidden="true"><li class="geo-l geo-l--home" style="--x:57.73%;--y:30.43%">Toshkent</li><li class="geo-l geo-l--cn geo-l--left" style="--x:94.29%;--y:48.06%">Yiwu</li><li class="geo-l geo-l--cn geo-l--left" style="--x:89.40%;--y:57.14%">Guanchjou</li><li class="geo-l geo-l--cn geo-l--left" style="--x:93.68%;--y:40.28%">Lianyungang</li><li class="geo-l geo-l--cn" style="--x:65.76%;--y:26.17%">Xorgos</li><li class="geo-l geo-l--cn geo-l--down" style="--x:62.05%;--y:32.75%">Ulug‘chat</li><li class="geo-l geo-l--minor geo-l--far" style="--x:28.76%;--y:30.86%">Turkiya</li><li class="geo-l geo-l--minor geo-l--far" style="--x:14.16%;--y:17.48%">Yevropa</li><li class="geo-l geo-l--minor" style="--x:44.88%;--y:38.68%">Eron</li><li class="geo-l geo-l--minor" style="--x:81.07%;--y:86.53%">Malayziya</li></ul></div><!--/GEO-->
+      <div class="geo-map" data-geo-map role="img" aria-label="BSM Logistics yo‘nalishlari xaritasi: Xitoydan Xorgos va Ulug‘chat orqali Toshkentga, shuningdek Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyodan"></div>
+      <ul class="gm-names" data-geo-names hidden><li data-k="tashkent">Toshkent</li><li data-k="guangzhou">Guanchjou</li><li data-k="yiwu">Yiwu</li><li data-k="lianyungang">Lianyungang</li><li data-k="khorgos">Xorgos</li><li data-k="ulugqat">Ulug‘chat</li><li data-k="europe">Yevropa</li><li data-k="turkey">Turkiya</li><li data-k="iran">Eron</li><li data-k="malaysia">Malayziya</li></ul>
     </div>
+  </section>
+
+  <section class="cn-lanes" id="china" data-geo="china">
+    <div class="container">
+      <div class="cn-lanes__head">
+        <div class="geo__copy">
+          <p class="eyebrow" data-reveal>Xitoy</p>
+          <h2 data-reveal>Asosiy yo‘nalish: Xitoy</h2>
+        </div>
+        <p class="lead" data-reveal>Xitoyning istalgan provinsiyasidan yukni Yiwu, Guanchjou va Lianyungangdagi omborlarda yig‘amiz va Xorgos hamda Ulug‘chat orqali Toshkentga olib kelamiz.</p>
+      </div>
+      <div class="cn-modes" role="group" aria-label="Transport turi">
+        <button class="cn-mode" type="button" data-mode="auto" aria-pressed="true"><span class="cn-mode__nm">Avto</span><span class="cn-mode__dd">15–25<small>kun</small></span><span class="cn-mode__ds">Xorgos va Ulug‘chat orqali</span><i class="cn-mode__bar"></i></button>
+        <button class="cn-mode" type="button" data-mode="rail" aria-pressed="false"><span class="cn-mode__nm">Temir yo‘l</span><span class="cn-mode__dd">30–35<small>kun</small></span><span class="cn-mode__ds">Xorgos orqali</span><i class="cn-mode__bar"></i></button>
+        <button class="cn-mode" type="button" data-mode="air" aria-pressed="false"><span class="cn-mode__nm">Avia</span><span class="cn-mode__dd">6–9<small>kun</small></span><span class="cn-mode__ds">To‘g‘ridan-to‘g‘ri Toshkentga</span><i class="cn-mode__bar"></i></button>
+      </div>
+      <div class="geo-map" data-geo-map role="img" aria-label="Xitoydan Toshkentga avto, temir yo‘l va avia yo‘nalishlari"></div>
+      <ul class="gm-names" data-geo-names hidden><li data-k="tashkent">Toshkent</li><li data-k="guangzhou">Guanchjou</li><li data-k="yiwu">Yiwu</li><li data-k="lianyungang">Lianyungang</li><li data-k="khorgos">Xorgos</li><li data-k="ulugqat">Ulug‘chat</li></ul>
+    </div>
+    <script src="assets/js/geo-map.js?v=37" defer></script>
   </section>
 
   <!-- Warehouses in China -->
@@ -396,6 +417,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="main.js?v=36" defer></script>
+<script src="main.js?v=37" defer></script>
 </body>
 </html>

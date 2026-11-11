@@ -354,32 +354,8 @@
     gsap.from(types.querySelectorAll('.types__labels li'), { opacity: 0, y: 12, duration: 0.8, ease, stagger: 0.08, scrollTrigger: { trigger: types, start: 'top 75%' } });
   }
 
+  gsap.from('.cn-mode', { y: 30, opacity: 0, duration: 0.8, ease, stagger: 0.08, scrollTrigger: { trigger: '.cn-modes', start: 'top 85%' } });
   gsap.from('[data-geo-list] li', { y: 20, opacity: 0, duration: 0.8, ease, stagger: 0.06, scrollTrigger: { trigger: '[data-geo-list]', start: 'top 85%' } });
-
-  /* geography: the Chinese lanes draw first, then the rest; cargo pulses keep riding China to Tashkent */
-  const geoMap = document.querySelector('[data-geo-map]');
-  if (geoMap && window.MotionPathPlugin) {
-    const svg = geoMap.querySelector('svg');
-    const lanes = geoMap.querySelectorAll('.geo-r');
-    gsap.set(lanes, { strokeDasharray: 1, strokeDashoffset: 1 });
-    const pulses = gsap.timeline({ paused: true, repeat: -1 });
-    geoMap.querySelectorAll('.geo-r--cn').forEach((lane, i) => {
-      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('r', '5'); dot.setAttribute('class', 'geo-pulse');
-      svg.insertBefore(dot, svg.querySelector('.geo-p'));
-      pulses.fromTo(dot, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none', motionPath: { path: lane, align: lane, alignOrigin: [0.5, 0.5], start: 0, end: 0.1 } }, i * 0.35)
-        .to(dot, { duration: 2.2, ease: 'none', motionPath: { path: lane, align: lane, alignOrigin: [0.5, 0.5], start: 0.1, end: 1 } }, i * 0.35 + 0.3)
-        .to(dot, { opacity: 0, duration: 0.2 }, i * 0.35 + 2.3);
-    });
-    gsap.timeline({ scrollTrigger: { trigger: geoMap, start: 'top 75%', once: true }, defaults: { ease: 'power2.inOut' } })
-      .to(geoMap.querySelectorAll('.geo-r--cn:not(.geo-r--last)'), { strokeDashoffset: 0, duration: 1.1, stagger: 0.12 })
-      .to(geoMap.querySelectorAll('.geo-r--last'), { strokeDashoffset: 0, duration: 0.9, stagger: 0.12 }, '-=0.3')
-      .to(geoMap.querySelectorAll('.geo-r:not(.geo-r--cn)'), { strokeDashoffset: 0, duration: 1, stagger: 0.08 }, '-=0.5')
-      // opacity only: a GSAP move would rewrite the labels' CSS translate offsets
-      .from(geoMap.querySelectorAll('.geo-l'), { opacity: 0, duration: 0.5, stagger: 0.04, ease: 'none' }, 0.3)
-      .add(() => pulses.play());
-    ScrollTrigger.create({ trigger: geoMap, start: 'top bottom', end: 'bottom top', onToggle: (st) => (st.isActive && pulses.progress() > 0 ? pulses.resume() : pulses.pause()) });
-  }
 
   /* advantages */
   gsap.from('[data-feats] .feat', { y: 50, opacity: 0, duration: 1, ease, stagger: 0.1, scrollTrigger: { trigger: '[data-feats]', start: 'top 85%' } });
@@ -420,7 +396,7 @@
 
   /* endless hero loops pause while the hero is off screen */
   const loopIo = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
-  document.querySelectorAll('.hero, .geo').forEach((s) => loopIo.observe(s));
+  document.querySelectorAll('.hero').forEach((s) => loopIo.observe(s));
   const heroVideo = document.querySelector('.hero video');
   if (heroVideo) new IntersectionObserver(([e]) => { if (e.isIntersecting) heroVideo.play().catch(() => {}); else heroVideo.pause(); }).observe(heroVideo);
 

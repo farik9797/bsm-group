@@ -5,7 +5,7 @@
 
 Strings are swapped whole, only as an element's text or a quoted value, longest first, so a short
 phrase never eats part of a longer one. The build fails if a dictionary entry is not found or if
-Cyrillic is left in the Uzbek page. Run after sprite.py / route.py / geo.py:  python3 tools/build.py
+Cyrillic is left in the Uzbek page. Run after sprite.py / route.py:  python3 tools/build.py
 """
 import pathlib, re
 
@@ -51,6 +51,14 @@ UZ = {
     'Негабаритные': 'Negabarit', 'Железнодорожные': 'Temir yo‘l', 'Мультимодальные': 'Multimodal',
     # geography
     'Главное направление: Китай': 'Asosiy yo‘nalish: Xitoy',
+    'Откуда везём грузы': 'Yuklarni qayerdan olib kelamiz',
+    'Главное направление — Китай. Возим и из Турции, Европы, Ирана и Юго-Восточной Азии, транзитом через Казахстан и Кыргызстан.':
+        'Asosiy yo‘nalish — Xitoy. Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyodan ham olib kelamiz, tranzit Qozog‘iston va Qirg‘iziston orqali.',
+    'Авто': 'Avto', 'Ж/д': 'Temir yo‘l', 'Авиа': 'Avia', 'дней': 'kun', 'Вид транспорта': 'Transport turi',
+    'Через Хоргос и Улугчат': 'Xorgos va Ulug‘chat orqali', 'Через Хоргос': 'Xorgos orqali', 'Напрямую в Ташкент': 'To‘g‘ridan-to‘g‘ri Toshkentga',
+    'Карта маршрутов BSM Logistics: из Китая через Хоргос и Улугчат в Ташкент, а также из Турции, Европы, Ирана и Юго-Восточной Азии':
+        'BSM Logistics yo‘nalishlari xaritasi: Xitoydan Xorgos va Ulug‘chat orqali Toshkentga, shuningdek Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyodan',
+    'Маршруты из Китая в Ташкент для авто, железной дороги и авиа': 'Xitoydan Toshkentga avto, temir yo‘l va avia yo‘nalishlari',
     'Груз из любой провинции Китая собираем на складах в Иу, Гуанчжоу и Ляньюньгане, через Хоргос и Улугчат везём в Ташкент.':
         'Xitoyning istalgan provinsiyasidan yukni Yiwu, Guanchjou va Lianyungangdagi omborlarda yig‘amiz va Xorgos hamda Ulug‘chat orqali Toshkentga olib kelamiz.',
     'Китай': 'Xitoy', 'Авто, ж/д, авиа, 5 складов': 'Avto, temir yo‘l, avia, 5 ta ombor', 'Турция': 'Turkiya', 'Европа': 'Yevropa', 'Иран': 'Eron',

@@ -23,6 +23,9 @@
   --color-focus: #7A35E0;
   --color-bar: rgb(255 255 255 / 0.72); --color-bar-solid: rgb(255 255 255 / 0.96); --color-fill: rgb(17 17 22 / 0.05); --color-fill-strong: rgb(17 17 22 / 0.12);
   --color-tint: rgb(122 53 224 / 0.1); --color-scrim: rgb(10 10 14 / 0.42); --shadow-bar: 0 12px 32px -12px rgb(17 17 22 / 0.28);
+  /* geography maps: dot groups (base, cn, uz, tr) and the lines; the pressed transport card */
+  --geo-base: #D9D9E0; --geo-cn: #C8B6F6; --geo-uz: #111116; --geo-tr: #B4B4BF; --geo-route: #6C3BE0; --geo-lane: #A6A6B0;
+  --mode-on-bg: #111116; --mode-on-ink: #FFFFFF; --mode-on-accent: #ADF728; --mode-on-muted: #B7B7C0;
   --rt-ink: #2E2E38; --rt-cloud: #E8E8EF; --rt-dash: #CDCDD6; --rt-wave: #8E43F1; --rt-hole: #FFFFFF; --rt-box-a: #ADF728; --rt-box-b: #4F7D0C;
   --font-display: "Onest", "Arial", sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-body);
   --radius-card: 20px; --radius-sm: 12px; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
@@ -44,5 +47,7 @@
 /* dark page only: the route drawing and the overlays that sit on paper */
 :root[data-theme="dark"] {
   --color-scrim: rgb(0 0 0 / 0.6); --shadow-card: 0 30px 60px -30px rgb(0 0 0 / 0.8);
+  --geo-base: #24242D; --geo-cn: #4B3388; --geo-uz: #ADF728; --geo-tr: #3C3C4A; --geo-route: #9F74F5; --geo-lane: #5A5A66;
+  --mode-on-bg: #ADF728; --mode-on-ink: #050505; --mode-on-accent: #050505; --mode-on-muted: #2F3A12;
   --rt-ink: #C4C4CE; --rt-cloud: #2C2C36; --rt-dash: #3E3E4A; --rt-hole: #07070A;
 }

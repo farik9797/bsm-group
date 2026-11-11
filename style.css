@@ -3,8 +3,8 @@
  * axes: dark/grotesk-sans/neutral · posture: committed · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H5 E4 S4 R3 V3 · weakest: R, the client asked for their mockup 1:1, so its eyebrows, glows and arrow buttons stay */
 /* Hallmark · client override · the user asked for the mockup 1:1; its eyebrows (54), arrows in buttons (63) and the two-colour hero (38iii) are kept on their instruction */
-@import url("./tokens.css?v=36");
-@import url("./base.css?v=36");
+@import url("./tokens.css?v=37");
+@import url("./base.css?v=37");
 
 /* ---------- base ---------- */
 html { scroll-behavior: auto; }
@@ -182,26 +182,62 @@ section { position: relative; }
 .geo__item span { font-size: var(--text-sm); color: var(--color-muted); }
 .geo__item--main { grid-column: 1 / -1; }
 .geo__item--main strong { font-size: var(--text-lg); color: var(--color-accent); }
-.geo-map { position: relative; margin-top: var(--space-xl); }
-.geo-map__dots, .geo-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.geo-map__dots--dark, :root[data-theme="dark"] .geo-map__dots--light { display: none; }
-:root[data-theme="dark"] .geo-map__dots--dark { display: block; }
-.geo-map__svg { overflow: visible; }
-.geo-r { fill: none; stroke: var(--color-dim); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.geo-r--cn { stroke: var(--color-accent); stroke-width: 2.5; }
-.geo-p { fill: var(--color-paper); stroke: var(--color-muted); stroke-width: 2; vector-effect: non-scaling-stroke; }
-.geo-p--cn { stroke: var(--color-accent); stroke-width: 2.5; }
-.geo-pulse { fill: var(--color-accent); }
-.geo-hub { fill: var(--color-lime); stroke: var(--color-ink); stroke-width: 3; vector-effect: non-scaling-stroke; }
-.geo-hub__ring { fill: none; stroke: var(--color-ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: hub-ping 2.6s var(--ease-out) infinite; }
-@keyframes hub-ping { 0% { transform: scale(0.6); opacity: 0.6; } 80%, 100% { transform: scale(1.8); opacity: 0; } }
-.geo-map__labels { list-style: none; margin: 0; padding: 0; }
-.geo-l { position: absolute; left: var(--x); top: var(--y); translate: 12px -50%; padding: var(--space-3xs) var(--space-xs); border-radius: var(--radius-pill); background: var(--color-glass); font-size: var(--text-sm); font-weight: 600; line-height: 1.2; white-space: nowrap; }
-.geo-l--home { translate: -50% calc(-100% - 18px); padding: var(--space-2xs) var(--space-sm); background: var(--color-ink); color: var(--color-paper); }
-.geo-l--left { translate: calc(-100% - 12px) -50%; }
-.geo-l--down { translate: -50% 14px; }
-.geo-l--cn { color: var(--color-accent); }
-.geo-l--minor { font-weight: 500; color: var(--color-muted); }
+.geo-map { margin-top: var(--space-xl); }
+
+/* the map engine (assets/js/geo-map.js): canvas dots, SVG routes, HTML pins */
+.gm-viewport { position: relative; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.gm-viewport::-webkit-scrollbar { display: none; }
+.gm { position: relative; width: 100%; min-width: var(--minw); }
+.gm canvas, .gm svg, .gm-layer { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gm svg { overflow: visible; }
+.gm-layer { pointer-events: none; }
+.gm-maskpath { fill: none; stroke: #fff; stroke-width: 34; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.gm-route path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.gm-cn path, .gm-auto path { stroke: var(--geo-route); stroke-width: 2.6; }
+.gm-auto path { stroke-width: 3.2; }
+.gm-ot path { stroke: var(--geo-lane); stroke-width: 1.6; stroke-dasharray: 2 6; }
+.gm-rail path { stroke: var(--color-ink); stroke-width: 5; }
+.gm-rail path.gm-tie { stroke: var(--color-paper); stroke-width: 2.6; stroke-dasharray: 7 5; stroke-linecap: butt; }
+.gm-air path { stroke: var(--geo-route); stroke-width: 2.2; stroke-dasharray: 1 8; }
+.gm-mover { vector-effect: non-scaling-stroke; }
+.gm-mover--cn { fill: var(--color-lime); stroke: var(--color-lime-ink); stroke-width: 2; }
+.gm-mover--ot { fill: var(--color-paper); stroke: var(--color-muted); stroke-width: 1.6; }
+.gm-pin { position: absolute; width: 0; height: 0; opacity: 0; transition: opacity var(--dur-long) ease; }
+.gm-pin.in { opacity: 1; }
+.gm-pin.dim { opacity: 0.35; }
+.gm-pt { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); border-radius: 50%; }
+.gm-lb { position: absolute; padding: 4px 7px; border-radius: 7px; background: var(--color-paper); font-size: 0.9375rem; font-weight: 600; line-height: 1; white-space: nowrap; }
+.gm-lb--r { left: 12px; top: 0; transform: translateY(-50%); }
+.gm-lb--l { right: 12px; top: 0; transform: translateY(-50%); }
+.gm-lb--t { left: 0; bottom: 14px; transform: translateX(-50%); }
+.gm-lb--b { left: 0; top: 14px; transform: translateX(-50%); }
+.gm-p-cn .gm-pt { width: 14px; height: 14px; background: var(--color-paper); border: 3px solid var(--geo-route); }
+.gm-p-cn .gm-lb { color: var(--geo-route); }
+.gm-p-ot .gm-pt { width: 12px; height: 12px; background: var(--color-paper); border: 2.5px solid var(--color-muted); }
+.gm-p-ot .gm-lb { color: var(--color-muted); font-weight: 500; }
+/* Tashkent: lime core, ink ring, soft pulse */
+.gm-hub .gm-pt { z-index: 2; width: 22px; height: 22px; background: var(--color-lime); border: 3px solid var(--color-ink); }
+.gm-ring { position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; border: 2px solid var(--color-ink); border-radius: 50%; opacity: 0; animation: gm-ring 2.6s cubic-bezier(.2, .6, .3, 1) infinite; }
+.gm-ring + .gm-ring { animation-delay: 1.3s; }
+.gm-hub .gm-lb { bottom: 20px; padding: 9px 13px; border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); font-size: 1rem; }
+@keyframes gm-ring { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(3.4); opacity: 0; } }
+
+/* ---------- China: one transport mode at a time ---------- */
+.cn-lanes { padding-block: 0 var(--space-3xl); overflow: clip; }
+.cn-lanes__head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--space-lg) var(--space-2xl); align-items: end; }
+.cn-modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); margin-top: var(--space-xl); }
+.cn-mode { position: relative; overflow: hidden; display: block; padding: 22px 24px 24px; border: 0; border-radius: var(--radius-card); background: var(--color-surface-2); color: var(--color-ink); font: inherit; text-align: left; cursor: pointer; transition: background-color var(--dur-short), color var(--dur-short), scale var(--dur-micro); }
+.cn-mode:hover { background: var(--color-rule); }
+.cn-mode:active { scale: 0.985; }
+.cn-mode:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; transition: none; }
+.cn-mode__nm { font-size: 1.125rem; font-weight: 600; }
+.cn-mode__dd { display: block; margin-top: 14px; font-size: clamp(2.125rem, 3.6vw, 3.25rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.cn-mode__dd small { margin-left: 6px; font-size: 0.42em; font-weight: 600; letter-spacing: -0.01em; }
+.cn-mode__ds { display: block; margin-top: 10px; font-size: 1rem; color: var(--color-muted); transition: color var(--dur-short); }
+.cn-mode__bar { position: absolute; left: 0; bottom: 0; width: 100%; height: 5px; background: var(--mode-on-accent); transform: scaleX(0); transform-origin: left; }
+.cn-mode[aria-pressed="true"] { background: var(--mode-on-bg); color: var(--mode-on-ink); }
+.cn-mode[aria-pressed="true"] .cn-mode__dd { color: var(--mode-on-accent); }
+.cn-mode[aria-pressed="true"] .cn-mode__ds { color: var(--mode-on-muted); }
 
 /* ---------- why ---------- */
 .why { padding-block: var(--space-2xl); background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule); overflow: clip; }
@@ -486,7 +522,7 @@ html.is-locked { overflow: hidden; }
   .wh__grid li, .wh__grid li:nth-child(n + 4) { grid-column: auto; }
   .wh__grid li:first-child { grid-column: 1 / -1; }
   .stats--page { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .geo__inner { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .geo__inner, .cn-lanes__head { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cards[data-cards] li:first-child { grid-column: 1 / -1; }
   .cards[data-cards] li:first-child .card { aspect-ratio: 16 / 8; }
@@ -616,10 +652,13 @@ html.is-locked { overflow: hidden; }
   .clients-row { gap: var(--space-md); }
   .clients-row__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg) var(--space-sm); }
 
-  /* phones: zoom the map onto Tashkent and China; Europe and Turkey stay in the list above */
-  .geo-map { width: 165%; margin-left: -58%; }
-  .geo-l { font-size: var(--text-xs); }
-  .geo-l--far { display: none; }
+  /* phones: the general map scrolls sideways and opens on China; the China map fits the width */
+  .gm-lb { padding: 3px 5px; font-size: 0.8125rem; }
+  .gm-hub .gm-lb { padding: 7px 11px; font-size: 0.875rem; }
+  .cn-modes { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); margin-top: var(--space-lg); }
+  .cn-mode { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 16px 20px; }
+  .cn-mode__dd { grid-row: 1 / 3; grid-column: 2; margin: 0; font-size: 2rem; }
+  .cn-mode__ds { margin-top: 4px; font-size: 0.9375rem; }
   .page-head { padding-block: calc(var(--nav-h) + var(--space-lg)) var(--space-xl); }
   .page-head h1 { font-size: clamp(2rem, 9vw, 2.5rem); }
   .page-head__actions .btn { width: 100%; }
@@ -653,7 +692,8 @@ html.is-locked { overflow: hidden; }
   .js [data-reveal], .js [data-rise] { opacity: 1; transform: none; }
   .js .road__path--lit, .js .rt-lit { stroke-dashoffset: 0; }
   .rt-marker { display: none; }
-  .geo-hub__ring { animation: none; opacity: 0; }
+  .gm-ring { animation: none; }
+  .gm-pin { transition: none; }
   .btn--shine::after, .btn--shine .icon, .play__circle--ping::before, .play__circle--ping .icon, .stat__icon { animation: none; }
   .card img, .proj img, .btn, .nav, .btn .icon, .fl label, .dots button::before { transition: none; }
   .card:hover img, .proj:hover img { transform: none; }
