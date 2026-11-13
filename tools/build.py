@@ -44,8 +44,7 @@ UZ = {
     'Лет на рынке': 'Yil bozorda', 'Клиентов': 'Mijoz', 'м²': 'm²', 'Складов в Китае': 'Xitoydagi omborlar', 'Стран и городов': 'Davlat va shahar',
     # transport types
     'Виды перевозок': 'Tashuv turlari', 'Подберём транспорт под груз': 'Yukingizga mos transport tanlaymiz',
-    'Еврофуры и тандемы грузоподъёмностью от 20 до 29 тонн, контейнеровозы, платформы, рефрижераторы.':
-        '20 tonnadan 29 tonnagacha ko‘taradigan yevro furalar va tandemlar, konteynerovozlar, platformalar, refrijeratorlar.',
+    'Подбираем транспорт под грузы любого объёма и сложности.': 'Har qanday hajm va murakkablikdagi yuklar uchun mos transportlarni taklif qilamiz.',
     'Рефрижераторные': 'Refrijerator', 'Контейнерные': 'Konteyner', 'Сборные грузы': 'Yig‘ma yuklar', 'Тентовые': 'Tentli',
     'Негабаритные': 'Negabarit', 'Железнодорожные': 'Temir yo‘l', 'Мультимодальные': 'Multimodal',
     # geography
@@ -54,7 +53,7 @@ UZ = {
     'Главное направление — Китай. Возим и из Турции, Европы, Ирана и Юго-Восточной Азии, транзитом через Казахстан и Кыргызстан.':
         'Asosiy yo‘nalish — Xitoy. Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyodan ham olib kelamiz, tranzit Qozog‘iston va Qirg‘iziston orqali.',
     'Авто': 'Avto', 'Ж/д': 'Temir yo‘l', 'Авиа': 'Avia', 'дней': 'kun', 'Вид транспорта': 'Transport turi',
-    'Через Хоргос и Улугчат': 'Xorgos va Ulug‘chat orqali', 'Через Хоргос': 'Xorgos orqali', 'Напрямую в Ташкент': 'To‘g‘ridan-to‘g‘ri Toshkentga',
+    'Через Хоргос и Улугчат': 'Xorgos va Ulug‘chat orqali', 'Через Хоргос': 'Xorgos orqali', 'Из Шанхая в Ташкент': 'Shanxaydan Toshkentga', 'Шанхай': 'Shanxay',
     'Карта маршрутов BSM Logistics: из Китая через Хоргос и Улугчат в Ташкент, а также из Турции, Европы, Ирана и Юго-Восточной Азии':
         'BSM Logistics yo‘nalishlari xaritasi: Xitoydan Xorgos va Ulug‘chat orqali Toshkentga, shuningdek Turkiya, Yevropa, Eron va Janubi-Sharqiy Osiyodan',
     'Маршруты из Китая в Ташкент для авто, железной дороги и авиа': 'Xitoydan Toshkentga avto, temir yo‘l va avia yo‘nalishlari',
@@ -73,8 +72,7 @@ UZ = {
     'Склад консолидации': 'Konsolidatsiya ombori', 'У границы с Казахстаном': 'Qozog‘iston chegarasi yonida', 'У границы с Кыргызстаном': 'Qirg‘iziston chegarasi yonida',
     'Предыдущий склад': 'Oldingi ombor', 'Следующий склад': 'Keyingi ombor',
     # why
-    'Начинали в 2016 году с железнодорожных перевозок из Китая. Сейчас возим авто, ж/д и авиа и сами оформляем таможню.':
-        '2016-yilda Xitoy yo‘nalishida temir yo‘l tashuvlaridan boshlaganmiz. Bugun avto, temir yo‘l va avia orqali tashiymiz, bojxonani o‘zimiz rasmiylashtiramiz.',
+    'Занимаемся международной логистикой с 2016 года. Контролируем каждый этап: от приёма груза на заводе до передачи вам.': '2016-yildan beri xalqaro logistika bilan shug‘ullanamiz. Yukingizni zavoddan qabul qilishdan boshlab, sizga topshirishgacha bo‘lgan bosqichni tizimli nazorat qilamiz.',
     'Как мы работаем': 'Qanday ishlaymiz', 'Гарантия на груз': 'Yuk uchun kafolat',
     'Если груз пострадал по нашей вине, возместим ущерб': 'Tashishda biz tomondan zarar yetsa, qoplab beramiz',
     'Свои склады в Китае': 'Xitoyda o‘z omborlarimiz', 'Пять складов, от Гуанчжоу до границы': 'Beshta ombor: Guanchjoudan chegaragacha',

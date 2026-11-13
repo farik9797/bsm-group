@@ -194,8 +194,7 @@
         m.route(['lianyungang', 'khorgos', 'tashkent'], { bend: [-0.05, 0.2], cls: 'gm-auto' })],
       rail: [rail(m.route(['lianyungang', 'khorgos', 'almaty', 'tashkent'], { bend: [-0.03, 0.02, 0.12], cls: 'gm-rail' })),
         rail(m.route(['yiwu', 'khorgos', 'almaty', 'tashkent'], { bend: [0.06, 0.02, 0.12], cls: 'gm-rail' }))],
-      air: [m.route(['guangzhou', 'tashkent'], { bend: -0.2, cls: 'gm-air' }),
-        m.route(['yiwu', 'tashkent'], { bend: -0.24, cls: 'gm-air' })],
+      air: [m.route(['shanghai', 'tashkent'], { bend: -0.22, cls: 'gm-air' })],
     };
     const SPEED = { auto: 4600, rail: 6400, air: 2600 };
     Object.entries(R).forEach(([k, rs]) => rs.forEach((r, i) => {
@@ -203,9 +202,9 @@
       m.mover(r, { period: SPEED[k], offset: i * 0.33, cls: 'gm-mover--cn', r: rad });
       m.mover(r, { period: SPEED[k], offset: i * 0.33 + 0.5, cls: 'gm-mover--cn', r: rad });
     }));
-    const SIDE = { guangzhou: 'b', yiwu: 'l', lianyungang: 'l', khorgos: 't', ulugqat: 'b' };
+    const SIDE = { guangzhou: 'b', yiwu: 'l', lianyungang: 'l', shanghai: 'r', khorgos: 't', ulugqat: 'b' };
     const P = {}; Object.entries(SIDE).forEach(([k, side]) => (P[k] = m.pin(k, N[k], side, 'gm-p-cn')));
-    const USE = { auto: ['guangzhou', 'yiwu', 'lianyungang', 'khorgos', 'ulugqat'], rail: ['yiwu', 'lianyungang', 'khorgos'], air: ['guangzhou', 'yiwu'] };
+    const USE = { auto: ['guangzhou', 'yiwu', 'lianyungang', 'khorgos', 'ulugqat'], rail: ['yiwu', 'lianyungang', 'khorgos'], air: ['shanghai'] };
     m.pin('tashkent', N.tashkent, 't', 'gm-hub').classList.add('in');
 
     const btns = [...sec.querySelectorAll('[data-mode]')]; const ORDER = ['auto', 'rail', 'air'], HOLD = 5200;
