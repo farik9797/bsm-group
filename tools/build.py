@@ -39,8 +39,7 @@ UZ = {
     'Все услуги': 'Barcha xizmatlar',
     # hero
     'Доставка грузов': 'Xitoydan', 'из Китая': 'O‘zbekistonga', 'в Узбекистан': 'yuk tashish',
-    'Свои склады в пяти городах Китая, таможня и доставка до вашего склада. Возим и из Турции, Европы, Ирана.':
-        'Xitoyning beshta shahrida o‘z omborlarimiz, bojxona va omboringizgacha yetkazish. Turkiya, Yevropa va Erondan ham olib kelamiz.',
+    'Международная логистика в Узбекистан из Китая, Турции, Ирана, Европы и стран Юго-Восточной Азии.': 'Xitoy, Turkiya, Eron, Yevropa va Janubi-Sharqiy Osiyo davlatlaridan O‘zbekistonga xalqaro logistika xizmatlari.',
     'Наши склады в Китае': 'Xitoydagi omborlarimiz', '5 складов': 'Xitoyda', 'в Китае': '5 ta ombor',
     'Лет на рынке': 'Yil bozorda', 'Клиентов': 'Mijoz', 'м²': 'm²', 'Складов в Китае': 'Xitoydagi omborlar', 'Стран и городов': 'Davlat va shahar',
     # transport types

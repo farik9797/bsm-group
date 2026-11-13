@@ -80,7 +80,7 @@ section { position: relative; }
 .theme-btn .icon { width: 20px; height: 20px; }
 .theme-btn__sun, :root[data-theme="dark"] .theme-btn__moon { display: none; }
 :root[data-theme="dark"] .theme-btn__sun { display: block; }
-.nav__burger { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); background: transparent; color: inherit; cursor: pointer; }
+.nav__burger { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: var(--rule-hair) solid var(--color-rule-strong); border-radius: var(--radius-pill); background: transparent; color: var(--color-ink); cursor: pointer; }
 .nav__burger:hover { border-color: var(--color-accent); }
 .drawer { background: var(--color-paper); border-top: var(--rule-hair) solid var(--color-rule); }
 .drawer__links { display: grid; padding-block: var(--space-md) var(--space-lg); }
