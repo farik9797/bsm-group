@@ -143,9 +143,15 @@ section { position: relative; }
 
 /* ---------- services ---------- */
 .services { padding-block: var(--space-3xl) var(--space-3xl); }
-.services__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 2.3fr); gap: var(--space-2xl); align-items: center; }
-.services__head { display: grid; gap: var(--space-md); justify-items: start; }
+.services__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+.services__head { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--space-md) var(--gap-columns); justify-items: start; align-items: end; }
 .services__head .btn { margin-top: var(--space-sm); }
+@media (min-width: 60.0625rem) {
+  .services__head .eyebrow { grid-column: 1 / -1; }
+  .services__head h2 { grid-column: 1; grid-row: 2 / span 2; align-self: start; }
+  .services__head .lead { grid-column: 2; grid-row: 2; }
+  .services__head .btn { grid-column: 2; grid-row: 3; }
+}
 .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
 .cards--more { margin-top: var(--space-md); }
 .card { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-sm); aspect-ratio: 16 / 9; padding: var(--space-md); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); overflow: hidden; color: var(--color-on-photo); text-decoration: none; isolation: isolate; transition: border-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out); }
@@ -516,6 +522,7 @@ html.is-locked { overflow: hidden; }
   .stat:nth-child(3) { border-left: 0; }
   .road { height: 100px; }
   .services__grid, .steps__grid, .projects__grid, .cta__grid { grid-template-columns: minmax(0, 1fr); }
+  .services__head { grid-template-columns: minmax(0, 1fr); }
   .cta__grid { padding-left: var(--gutter); }
   .faq__grid, .clients-row, .footer__grid { grid-template-columns: minmax(0, 1fr); }
   .page-head--photo .page-head__grid, .prose__grid, .contacts__grid { grid-template-columns: minmax(0, 1fr); }
