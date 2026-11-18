@@ -121,6 +121,7 @@ UZ_RAW = {
     'Почему BSM&nbsp;Logistics': 'Nega aynan BSM&nbsp;Logistics',
     '<html lang="ru">': '<html lang="uz">',
     'aria-label="Язык: русский">RU ': 'aria-label="Til: o‘zbekcha">UZ ',
+    '<p>Сайт разработан <a href="https://aivagroup.uz" target="_blank" rel="noopener">aivagroup.uz</a></p>': '<p>Sayt <a href="https://aivagroup.uz" target="_blank" rel="noopener">aivagroup.uz</a> tomonidan ishlab chiqilgan</p>',
 }
 KEEP = {'Русский'}   # a language's own name stays in its own script
 
